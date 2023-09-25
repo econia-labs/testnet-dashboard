@@ -10,7 +10,7 @@ const mono = Roboto_Mono({
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className={`${mono.variable} font-mono bg-noise text-white`}>
+        <div className={`${mono.variable} font-mono bg-noise text-white pt-35 px-46 lg:px-105`}>
             <Navbar />
             {children}
         </div>
