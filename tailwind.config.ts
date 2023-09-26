@@ -14,23 +14,52 @@ const config: Config = {
       xl: '1280px',
     },
     fontSize: {
-      '4xs': '.375rem',   // 6px
-      '3xs': '.5rem',     // 8px
-      '2xs': '.625rem',   // 10px
-      'xs': '.75rem',     // 12px
-      'sm': '.875rem',    // 14px
-      'base': '1rem',     // 16px
-      'lg': '1.125rem',   // 18px
-      'xl': '1.25rem',    // 20px
-      '2xl': '1.5rem',    // 24px
-      '3xl': '1.875rem',  // 30px
-      '4xl': '2.25rem',   // 36px
-      '5xl': '3rem',      // 48px
-      '6xl': '4rem',      // 64px
+      6: '6px',
+      8: '8px',
+      10: '10px',
+      12: '12px',
+      14: '14px',
+      16: '16px',
+      18: '18px',
+      20: '20px',
+      24: '24px',
+      30: '30px',
+      36: '36px',
+      48: '48px',
+      64: '64px',
     },
-    // spacing: {
-    //   1: '0.24rem', // 3.84px
-    // },
+    lineHeight: {
+      6: '6px',
+      8: '8px',
+      10: '10px',
+      12: '12px',
+      14: '14px',
+      16: '16px',
+      18: '18px',
+      20: '20px',
+      24: '24px',
+      30: '30px',
+      36: '36px',
+      48: '48px',
+      64: '64px',
+    },
+    gap: {
+      6: '6px',
+      8: '8px',
+      10: '10px',
+      12: '12px',
+      14: '14px',
+      16: '16px',
+      18: '18px',
+      20: '20px',
+      22: '22px',
+      24: '24px',
+      30: '30px',
+      36: '36px',
+      40: '40px',
+      48: '48px',
+      64: '64px',
+    },
     colors: {
       'white': '#FFFFFF',
       'blue': '#086CD9',
@@ -50,15 +79,20 @@ const config: Config = {
         noise: 'url("/bg-noise.png")',
       },
       fontFamily: {
-        mono: ['var(--font-mono)'],
-      },
-      lineHeight: {
-        '18': '18px',
+        mono: ['var(--font-mono)', 'sans-serif'],
+        jost: ['var(--font-jost)', 'sans-serif'],
       },
       spacing: {
-        '35': '2.20625rem', // 35.3px
-        '46': '2.87125rem', // 45.94px
-        '105': '6.55875rem', // 104.94px
+        '35': '35.3px',
+        '46': '45.94px',
+        '52': '52px',
+        '105': '104.94px',
+      },
+      rotate: {
+        '135': '135deg',
+      },
+      translate: {
+        '-3.25': '-12.5px',
       },
     },
   },

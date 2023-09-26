@@ -20,4 +20,8 @@
   body {
     @apply bg-800 overflow-hidden;
   }
+
+  .page {
+    @apply h-screen;
+  }
 }
