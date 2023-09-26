@@ -31,7 +31,7 @@ const menuList = [
 const SlidingMenu = ({ isOpen, toggleMenu }: { isOpen: boolean, toggleMenu: () => void }) => {
     return (
         <div className={`flex flex-col gap-40 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${isOpen ? 'w-full' : 'w-0'}`}>
-            <div className='flex flex-col pt-52 justify-between items-start gap-22'>
+            <div className='flex flex-col pt-52 justify-between items-start gap-23.68'>
                 {
                     menuList.map((item: MenuItem, index: number) => {
                         return (

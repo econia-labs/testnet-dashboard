@@ -8,6 +8,7 @@ const config: Config = {
   ],
   theme: {
     screens: {
+      xsm: '390px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
@@ -53,6 +54,7 @@ const config: Config = {
       18: '18px',
       20: '20px',
       22: '22px',
+      '23.68': '23.68px',
       24: '24px',
       30: '30px',
       36: '36px',
@@ -83,7 +85,10 @@ const config: Config = {
         jost: ['var(--font-jost)', 'sans-serif'],
       },
       spacing: {
+        '31.79': '31.79px',
+        '33.71': '33.71px',
         '35': '35.3px',
+        '42.71': '42.71px',
         '46': '45.94px',
         '52': '52px',
         '105': '104.94px',
