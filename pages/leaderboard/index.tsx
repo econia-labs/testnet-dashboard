@@ -1,4 +1,4 @@
-import LeaderBoardContainer from '@/containers/leader-board'
+import LeaderBoardContainer from '@/containers/leaderboard'
 import React from 'react'
 
 const LeaderBoard = () => {
