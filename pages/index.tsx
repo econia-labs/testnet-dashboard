@@ -1,9 +1,15 @@
 import React from 'react'
 import TradeContainer from '@/containers/trade'
+import Head from 'next/head'
 
 const Home = () => {
   return (
-    <TradeContainer />
+    <>
+      <Head>
+        <title>Econia - Trade</title>
+      </Head>
+      <TradeContainer />
+    </>
   )
 }
 
