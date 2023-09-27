@@ -30,7 +30,7 @@ const menuList = [
 
 const SlidingMenu = ({ isOpen, toggleMenu }: { isOpen: boolean, toggleMenu: () => void }) => {
     return (
-        <div className={`flex flex-col gap-40 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${isOpen ? 'w-full' : 'w-0'}`}>
+        <div className={`flex flex-col gap-40 z-10 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${isOpen ? 'w-full' : 'w-0'}`}>
             <div className='flex flex-col pt-52 justify-between items-start gap-23.68'>
                 {
                     menuList.map((item: MenuItem, index: number) => {
@@ -53,7 +53,7 @@ const MenuItem = ({ item, responsive = false, toggleMenu }: { item: MenuItem, re
     if (item.link.startsWith('/')) {
         return (
             <Fragment key={item.link}>
-                <Link href={item.link} className={className} onClick={toggleMenu}>
+                <Link href={item.link} className={`${className} transition-color duration-300 ease-in-out hover:text-blue`} onClick={toggleMenu}>
                     {item.name.toUpperCase()}
                 </Link>
                 <span className={`text-600 text-24 font-light ${responsive ? 'hidden' : ''}`}>/</span>
@@ -61,7 +61,7 @@ const MenuItem = ({ item, responsive = false, toggleMenu }: { item: MenuItem, re
         );
     } else {
         return (
-            <a key={item.link} href={item.link} target='_blank' className={`${className} flex gap-8`} onClick={toggleMenu}>
+            <a key={item.link} href={item.link} target='_blank' className='text-500 flex gap-8 transition-color duration-300 ease-in-out hover:text-blue' onClick={toggleMenu}>
                 {item.name.toUpperCase()} <ArrowExternalRightIcon />
             </a>
         );
