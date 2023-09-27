@@ -77,7 +77,7 @@ const Navbar = () => {
 
     return (
         <div className='flex justify-between items-center'>
-            <Link href="/" onClick={toggleMenu}>
+            <Link href="/" onClick={toggleMenu} className='transition duration-300 transform scale-101 hover:scale-96'>
                 <Image src={logo1} alt="logo" width={117} height={19} />
             </Link>
             <div className='hidden lg:flex gap-24 font-medium items-baseline'>
