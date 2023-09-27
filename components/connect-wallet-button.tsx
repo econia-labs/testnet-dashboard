@@ -1,8 +1,7 @@
-import { jost } from '@/fonts/fonts'
 import React from 'react'
+import { jost } from '@/fonts/fonts'
 import { useBoolean } from 'usehooks-ts'
 import Modal from './modal'
-
 
 interface ConnectWalletButtonProps {
     responsive?: boolean

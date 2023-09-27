@@ -1,5 +1,5 @@
-import TradeContainer from '@/containers/trade'
 import React from 'react'
+import TradeContainer from '@/containers/trade'
 
 const Home = () => {
   return (

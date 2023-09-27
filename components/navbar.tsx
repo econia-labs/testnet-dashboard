@@ -4,9 +4,9 @@ import { usePathname } from 'next/navigation'
 import logo1 from '../public/logo1.svg';
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
-import { ArrowExternalRightIcon } from '@/icons/ArrowExternalRightIcon';
-import ConnectWalletButton from './ConnectWalletButton';
-import { OpenMenuIcon } from '@/icons/OpenMenuIcon';
+import { ArrowExternalRightIcon } from '@/icons/arrow-external-right-icon';
+import ConnectWalletButton from './connect-wallet-button';
+import { OpenMenuIcon } from '@/icons/open-menu-icon';
 
 export type MenuItem = {
     name: string;

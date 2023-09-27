@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './containers/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
@@ -59,6 +60,7 @@ const config: Config = {
       30: '30px',
       36: '36px',
       40: '40px',
+      42: '42px',
       48: '48px',
       64: '64px',
     },
@@ -80,24 +82,38 @@ const config: Config = {
       backgroundImage: {
         noise: 'url("/bg-noise.png")',
       },
+      backgroundOpacity: {
+        20: '0.2',
+      },
       fontFamily: {
         mono: ['var(--font-mono)', 'sans-serif'],
         jost: ['var(--font-jost)', 'sans-serif'],
+      },
+      borderWidth: {
+        1: '1px',
       },
       spacing: {
         '31.79': '31.79px',
         '33.71': '33.71px',
         '35': '35.3px',
-        '42.71': '42.71px',
+        '42': '42px',
         '46': '45.94px',
         '52': '52px',
+        '96': '96px',
         '105': '104.94px',
+        '224': '224.27px',
+        '230.63': '230.63px',
+        '261.28': '261.28px',
+        '287.87': '287.87px',
       },
       rotate: {
         '135': '135deg',
       },
       translate: {
         '-3.25': '-12.5px',
+      },
+      lineHeight: {
+        '18': '18px',
       },
     },
   },
