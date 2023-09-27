@@ -15,7 +15,7 @@ const ConnectWalletButton = ({ responsive }: ConnectWalletButtonProps) => {
         <>
             <button
                 onClick={setOpen}
-                className={`${responsive ? "hidden lg:block" : ""} bg-white text-800 text-12 py-1 px-4 whitespace-nowrap h-fit w-fit leading-30 font-bold ${jost.variable} font-jost`}
+                className={`${responsive ? "hidden lg:block" : ""} bg-white text-700 text-12 py-1 px-4 whitespace-nowrap h-fit w-fit leading-30 font-bold ${jost.variable} font-jost hover:bg-300 transform transition-all duration-300 ease-in-out hover:translate-y-[-3px] hover:translate-z-[0.01px] hover:text800`}
             >
                 Connect Wallet
             </button>
