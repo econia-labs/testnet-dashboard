@@ -4,7 +4,9 @@ const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './containers/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './**/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     screens: {
@@ -25,6 +27,7 @@ const config: Config = {
       20: '20px',
       24: '24px',
       30: '30px',
+      32: '32px',
       36: '36px',
       48: '48px',
       64: '64px',
@@ -42,12 +45,14 @@ const config: Config = {
       30: '30px',
       36: '36px',
       48: '48px',
+      52: '52px',
       64: '64px',
     },
     gap: {
       6: '6px',
       8: '8px',
       10: '10px',
+      '11.55': '11.55px',
       12: '12px',
       14: '14px',
       16: '16px',
@@ -59,6 +64,7 @@ const config: Config = {
       30: '30px',
       36: '36px',
       40: '40px',
+      42: '42px',
       48: '48px',
       64: '64px',
     },
@@ -80,24 +86,85 @@ const config: Config = {
       backgroundImage: {
         noise: 'url("/bg-noise.png")',
       },
+      backgroundOpacity: {
+        20: '0.2',
+      },
       fontFamily: {
         mono: ['var(--font-mono)', 'sans-serif'],
         jost: ['var(--font-jost)', 'sans-serif'],
       },
+      borderWidth: {
+        1: '1px',
+      },
       spacing: {
+        '11.53': '11.53px',
         '31.79': '31.79px',
         '33.71': '33.71px',
         '35': '35.3px',
-        '42.71': '42.71px',
+        '42': '42px',
         '46': '45.94px',
         '52': '52px',
+        '96': '96px',
         '105': '104.94px',
+        '224': '224.27px',
+        '230.63': '230.63px',
+        '261.28': '261.28px',
+        '287.87': '287.87px',
       },
       rotate: {
         '135': '135deg',
       },
       translate: {
         '-3.25': '-12.5px',
+      },
+      lineHeight: {
+        '18': '18px',
+      },
+      boxShadow: {
+        '4': ' 0px 4px 4px rgba(0, 0, 0, 0.25)'
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+        fadeBorder: {
+          '0%': { borderColor: '#565656' },
+          '50%': { borderColor: '#086CD9' },
+          '100%': { borderColor: '#086CD9' },
+        },
+        fadeText: {
+          '0%': { color: '#565656' },
+          '50%': { color: '#086CD9' },
+          '100%': { color: '#086CD9' },
+        },
+        fadeBg: {
+          '0%': {
+            backgroundColor: 'transparent',
+            borderColor: '#565656'
+          },
+          '50%': {
+            backgroundColor: '#086CD9',
+            borderColor: '#086CD9'
+          },
+          '100%': {
+            backgroundColor: '#086CD9',
+            borderColor: '#086CD9'
+          },
+        }
+
+
+      },
+      animation: {
+        'fadeIn': 'fadeIn 0.5s linear 1',
+        'fadeOut': 'fadeOut 0.3s linear 1',
+        'fadeBorder': 'fadeBorder 2s linear infinite',
+        'fadeBg': 'fadeBg 2s linear infinite',
+        'fadeText': 'fadeText 2s linear infinite',
       },
     },
   },

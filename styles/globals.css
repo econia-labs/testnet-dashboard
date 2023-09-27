@@ -24,11 +24,7 @@
 
 @layer base {
   body {
-    @apply bg-800 overflow-hidden;
-  }
-
-  .page {
-    @apply h-screen;
+    @apply bg-800 bg-noise overflow-x-hidden;
   }
 
 }

@@ -4,9 +4,11 @@ import { usePathname } from 'next/navigation'
 import logo1 from '../public/logo1.svg';
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
-import { ArrowExternalRightIcon } from '@/icons/ArrowExternalRightIcon';
-import ConnectWalletButton from './ConnectWalletButton';
-import { OpenMenuIcon } from '@/icons/OpenMenuIcon';
+import { ArrowExternalRightIcon } from '@/icons/arrow-external-right-icon';
+import ConnectWalletButton from '../connect-wallet/connect-wallet-button';
+import { OpenMenuIcon } from '@/icons/open-menu-icon';
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import DisconnectWalletButton from '@/connect-wallet/disconnect-wallet-button';
 
 export type MenuItem = {
     name: string;
@@ -70,6 +72,8 @@ const MenuItem = ({ item, responsive = false, toggleMenu }: { item: MenuItem, re
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { connected, disconnect, account, network, signAndSubmitTransaction } =
+        useWallet();
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -89,7 +93,14 @@ const Navbar = () => {
                     })
                 }
             </div>
-            <ConnectWalletButton responsive={true} />
+            {
+                connected ? (
+                    <DisconnectWalletButton responsive={true} />
+                ) : (
+                    <ConnectWalletButton responsive={true} />
+                )
+            }
+
             <div className='flex lg:hidden flex-col gap-8 h-7' onClick={toggleMenu} >
                 <OpenMenuIcon className={`transition duration-300 ease-in-out ${isOpen ? "rotate-135" : ""}`} />
                 <OpenMenuIcon className={`transition duration-300 ease-in-out ${isOpen ? "rotate-45 -translate-y-3.25" : ""}`} />

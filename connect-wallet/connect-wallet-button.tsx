@@ -1,8 +1,8 @@
-import { jost } from '@/fonts/fonts'
 import React from 'react'
+import ConnectWalletModalBody from '@/connect-wallet/connect-wallet-modal-body'
+import { jost } from '@/fonts/fonts'
 import { useBoolean } from 'usehooks-ts'
-import Modal from './modal'
-
+import Modal from '@/components/modal'
 
 interface ConnectWalletButtonProps {
     responsive?: boolean
@@ -24,7 +24,7 @@ const ConnectWalletButton = ({ responsive }: ConnectWalletButtonProps) => {
                 open={openModal}
                 onClose={setClose}
             >
-
+                <ConnectWalletModalBody />
             </Modal>
         </>
 
