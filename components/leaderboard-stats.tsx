@@ -12,15 +12,15 @@ const StatCard = ({ title, value }: { title: string, value: string }) => {
 const LeaderboardStats = () => {
     const stats = [
         {
-            title: 'Total Volume',
+            title: 'TOTAL VOLUME',
             value: '$444,444.44'
         },
         {
-            title: 'Traders',
+            title: 'TRADERS',
             value: '4,444'
         },
         {
-            title: 'Total prizes',
+            title: 'TOTAL PRIZES',
             value: '$5,000+'
         }
     ]
