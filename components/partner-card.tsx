@@ -4,7 +4,9 @@ import React from 'react'
 const PartnerCard = ({ children, partner }: { children: React.ReactNode, partner: partnerType }) => {
     return (
         <div className='group cursor-pointer border-1 border-600 w-224 h-224 grid place-items-center transition-all duration-300 ease-in-out hover:bg-blue hover:bg-opacity-20 hover:border-blue'>
-            <div className='transition-all duration-500 ease-in-out opacity-100 group-hover:opacity-0'>{children}</div>
+            <div
+            // className='transition-all duration-500 ease-in-out opacity-100 group-hover:opacity-0'
+            >{children}</div>
             {/* <div className='absolute flex flex-col gap-8 transition-all duration-500 ease-in-out opacity-0 group-hover:opacity-100'>
                 <div className='text-center font-black'>
                     {partner.name}
