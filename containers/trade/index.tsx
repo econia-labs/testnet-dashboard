@@ -23,7 +23,7 @@ const partnerList: partnerType[] = [
 
 const TradeContainer = () => {
     return (
-        <div className='flex flex-col lg:flex-row justify-center items-center gap-42 my-96 lg:my-230.63'>
+        <div className='flex flex-col lg:flex-row justify-center items-center gap-42 mt-96 mb-96 lg:mt-230.63 lg:mb-0'>
             {
                 partnerList.map((partner: partnerType, index: number) => {
                     return (
