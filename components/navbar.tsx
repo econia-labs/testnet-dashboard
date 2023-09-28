@@ -5,8 +5,10 @@ import logo1 from '../public/logo1.svg';
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
 import { ArrowExternalRightIcon } from '@/icons/arrow-external-right-icon';
-import ConnectWalletButton from './connect-wallet-button';
+import ConnectWalletButton from '../connect-wallet/connect-wallet-button';
 import { OpenMenuIcon } from '@/icons/open-menu-icon';
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import DisconnectWalletButton from '@/connect-wallet/disconnect-wallet-button';
 
 export type MenuItem = {
     name: string;

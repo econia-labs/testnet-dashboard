@@ -6,6 +6,7 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './containers/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './**/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     screens: {
@@ -26,6 +27,7 @@ const config: Config = {
       20: '20px',
       24: '24px',
       30: '30px',
+      32: '32px',
       36: '36px',
       48: '48px',
       64: '64px',
@@ -43,12 +45,14 @@ const config: Config = {
       30: '30px',
       36: '36px',
       48: '48px',
+      52: '52px',
       64: '64px',
     },
     gap: {
       6: '6px',
       8: '8px',
       10: '10px',
+      '11.55': '11.55px',
       12: '12px',
       14: '14px',
       16: '16px',
@@ -95,6 +99,7 @@ const config: Config = {
         1: '1px',
       },
       spacing: {
+        '11.53': '11.53px',
         '5.64': '5.64px',
         '31.79': '31.79px',
         '33.71': '33.71px',
@@ -119,6 +124,7 @@ const config: Config = {
         '437': '437.22px',
         '605': '605.88px',
         '757': '757.44px',
+        '599.21': '599.21px'
       },
       rotate: {
         '135': '135deg',
@@ -128,6 +134,52 @@ const config: Config = {
       },
       lineHeight: {
         '18': '18px',
+      },
+      boxShadow: {
+        '4': ' 0px 4px 4px rgba(0, 0, 0, 0.25)'
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+        fadeBorder: {
+          '0%': { borderColor: '#565656' },
+          '50%': { borderColor: '#086CD9' },
+          '100%': { borderColor: '#086CD9' },
+        },
+        fadeText: {
+          '0%': { color: '#565656' },
+          '50%': { color: '#086CD9' },
+          '100%': { color: '#086CD9' },
+        },
+        fadeBg: {
+          '0%': {
+            backgroundColor: 'transparent',
+            borderColor: '#565656'
+          },
+          '50%': {
+            backgroundColor: '#086CD9',
+            borderColor: '#086CD9'
+          },
+          '100%': {
+            backgroundColor: '#086CD9',
+            borderColor: '#086CD9'
+          },
+        }
+
+
+      },
+      animation: {
+        'fadeIn': 'fadeIn 0.5s linear 1',
+        'fadeOut': 'fadeOut 0.3s linear 1',
+        'fadeBorder': 'fadeBorder 2s linear infinite',
+        'fadeBg': 'fadeBg 2s linear infinite',
+        'fadeText': 'fadeText 2s linear infinite',
       },
       zIndex: {
         '-1': '-1',
