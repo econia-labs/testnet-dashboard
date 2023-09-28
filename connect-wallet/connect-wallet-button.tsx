@@ -24,7 +24,7 @@ const ConnectWalletButton = ({ responsive }: ConnectWalletButtonProps) => {
             {
                 !connected && (
                     <Modal
-                        className='md:w-1/2 lg:w-1/4'
+                        className='!w-599.21'
                         open={openModal}
                         onClose={setClose}
                     >

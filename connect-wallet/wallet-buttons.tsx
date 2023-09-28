@@ -8,6 +8,7 @@ import {
     WalletName,
 } from "@aptos-labs/wallet-adapter-react";
 import React, { useState } from 'react'
+import { getWalletHomePageUrl } from "./constants";
 
 const WalletButtons = () => {
 
@@ -24,7 +25,6 @@ const WalletButtons = () => {
 const WalletView = (wallet: Wallet) => {
     const { isLoading } = useWallet()
     const [connecting, setConnecting] = useState(false)
-    console.log("🚀 ~ file: wallet-buttons.tsx:27 ~ WalletView ~ connecting:", connecting)
 
     const { connect } = useWallet();
     const isWalletReady =
@@ -33,6 +33,9 @@ const WalletView = (wallet: Wallet) => {
     const mobileSupport = wallet.deeplinkProvider;
 
     const onWalletConnectRequest = async (walletName: WalletName) => {
+        if (!isWalletReady) {
+            window.open(getWalletHomePageUrl(wallet.name))
+        }
         setConnecting(true)
         try {
             await connect(walletName);
@@ -53,39 +56,19 @@ const WalletView = (wallet: Wallet) => {
      * isRedirectable() - are we on mobile AND not in an in-app browser
      * mobileSupport - does wallet have deeplinkProvider property? i.e does it support a mobile app
      */
-    if (!isWalletReady && isRedirectable()) {
+    if (!isWalletReady && isRedirectable() && mobileSupport) {
         // wallet has mobile app
-        if (mobileSupport) {
-            return (
-                <button
-                    className={`${connecting && 'animate-fadeBorder '} animate-fadeBorder flex items-center gap-11.55 font-jost text-base font-medium group transition-colors relative w-full border border-600 text-500 px-11.53 py-[9.2px]  ${true ? "hover:border-blue" : "aaaa opacity-50 cursor-not-allowed"
-                        }`}
-                    disabled={false || isLoading}
-                    key={wallet.name}
-                    onClick={() => onWalletConnectRequest(wallet.name)}
-                >
-                    <div className={`${!isWalletReady && 'disabled'} group-hover:[&:not(.disabled)]:text-blue transition-colors text-600`}>
-                        <BridgeIcon />
-                    </div>
-
-                    <span>{wallet.name} Wallet</span>
-
-                    <div className={` ${!isWalletReady && 'disabled'} transition-colors group-hover:[&:not(.disabled)_svg]:-rotate-45 [&_svg]:transition-transform group-hover:[&:not(.disabled)]:bg-blue group-hover:[&:not(.disabled)]:border-blue border border-600 absolute right-[-1px] bottom-[-1px] p-[4.23px] w-fit h-fit`}>
-                        <ArrowRightICon />
-                    </div>
-                </button>
-            );
-        }
-        // wallet does not have mobile app
         return (
             <button
-                className={`flex items-center gap-11.55 font-jost text-base font-medium group transition-colors relative w-full border border-600 text-500 px-11.53 py-[9.2px]  ${isWalletReady ? "hover:border-blue" : "aaaa opacity-50 cursor-not-allowed"
+                className={`${connecting && 'animate-fadeBorder '} animate-fadeBorder flex items-center gap-11.55 font-jost text-base font-medium group transition-colors relative w-full border border-600 text-500 px-11.53 h-[45.38425px]  ${true ? "hover:border-blue" : "aaaa opacity-50 cursor-not-allowed"
                     }`}
-                disabled={isLoading}
+                disabled={false || isLoading}
                 key={wallet.name}
+                onClick={() => onWalletConnectRequest(wallet.name)}
             >
-                <div className={`${!isWalletReady && 'disabled'} group-hover:[&:not(.disabled)]:text-blue transition-colors text-600`}>
+                <div className={`${!isWalletReady && 'disabled'} group-hover:[&:not(.disabled)]:text-blue transition-colors text-600 w-[25.73px] h-[25.73px]`}>
                     <BridgeIcon />
+
                 </div>
 
                 <span>{wallet.name} Wallet</span>
@@ -95,23 +78,43 @@ const WalletView = (wallet: Wallet) => {
                 </div>
             </button>
         );
+
+        // // wallet does not have mobile app
+        // return (
+        //     <button
+        //         className={`flex items-center gap-11.55 font-jost text-base font-medium group transition-colors relative w-full border border-600 text-500 px-11.53 h-[45.38425px] hover:border-blue "
+        //             }`}
+        //         disabled={isLoading}
+        //         key={wallet.name}
+        //         onClick={() => onWalletConnectRequest(wallet.name)}
+        //     >
+        //         <div className={`${!isWalletReady && 'disabled'} group-hover:[&:not(.disabled)]:text-blue transition-colors text-600`}>
+        //             <BridgeIcon />
+        //         </div>
+
+        //         <span>{wallet.name} Wallet</span>
+
+        //         <div className={` ${!isWalletReady && 'disabled'} transition-colors group-hover:[&:not(.disabled)_svg]:-rotate-45 [&_svg]:transition-transform group-hover:[&:not(.disabled)]:bg-blue group-hover:[&:not(.disabled)]:border-blue border border-600 absolute right-[-1px] bottom-[-1px] p-[4.23px] w-fit h-fit`}>
+        //             <ArrowRightICon />
+        //         </div>
+        //     </button>
+        // );
     } else {
         // we are on desktop view
         return (
             <button
-                className={` ${connecting && 'animate-fadeBorder '} flex items-center gap-11.55 font-jost text-base font-medium group transition-colors relative w-full border border-600 text-500 px-11.53 py-[9.2px]  ${isWalletReady ? "hover:border-blue" : "aaaa opacity-50 cursor-not-allowed"
-                    }`}
-                disabled={!isWalletReady || isLoading}
+                className={` ${connecting && 'animate-fadeBorder '} flex items-center gap-11.55 font-jost text-base font-medium group transition-colors relative w-full border border-600 text-500 px-11.53 h-[45.38425px] hover:border-blue`}
+                disabled={isLoading}
                 key={wallet.name}
                 onClick={() => onWalletConnectRequest(wallet.name)}
             >
-                <div className={`${connecting && 'animate-fadeText '} ${!isWalletReady && 'disabled'} group-hover:[&:not(.disabled)]:text-blue transition-colors text-600`}>
+                <div className={`${connecting && 'animate-fadeText '}  group-hover:[&:not(.disabled)]:text-blue transition-colors text-600`}>
                     <BridgeIcon />
                 </div>
 
                 <span>{wallet.name} Wallet</span>
 
-                <div className={` ${!isWalletReady && 'disabled'} ${connecting && 'animate-fadeBg'} transition-colors group-hover:[&:not(.disabled)_svg]:-rotate-45 [&_svg]:transition-transform group-hover:[&:not(.disabled)]:bg-blue group-hover:[&:not(.disabled)]:border-blue border border-600 absolute right-[-1px] bottom-[-1px] p-[4.23px] w-fit h-fit`}>
+                <div className={`${connecting && 'animate-fadeBg'} transition-colors group-hover:[&:not(.disabled)_svg]:-rotate-45 [&_svg]:transition-transform group-hover:[&:not(.disabled)]:bg-blue group-hover:[&:not(.disabled)]:border-blue border border-600 absolute right-[-1px] bottom-[-1px] p-[4.23px] w-fit h-fit`}>
                     <ArrowRightICon />
                 </div>
             </button>
