@@ -22,7 +22,7 @@ const DisconnectWalletButton = ({ responsive }: DisConnectWalletButtonProps) => 
                 Disconnect Wallet
             </button>
             {
-                showConfetti && <ConfettiEffect onClose={onClose} />
+                showConfetti && <ConfettiEffect duration={5000} onClose={onClose} />
             }
 
 

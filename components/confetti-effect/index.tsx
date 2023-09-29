@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 type ConfettiEffectProps = {
     onClose?: () => void
+    duration?: number
 }
 const mp = 1500; // max particles
 const settleMp = mp / 2; // max particles
@@ -9,7 +10,7 @@ let reactivationTimerHandler: NodeJS.Timeout | null;
 let animationHandler: number | null;
 let confettiActive = true;
 
-const ConfettiEffect = ({ onClose }: ConfettiEffectProps) => {
+const ConfettiEffect = ({ onClose, duration }: ConfettiEffectProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     let canvas: HTMLCanvasElement | null;
     let ctx: CanvasRenderingContext2D | null | undefined;
@@ -258,16 +259,22 @@ const ConfettiEffect = ({ onClose }: ConfettiEffectProps) => {
 
     useEffect(() => {
         initializeCanvas();
-    }, []);
+        let timer: null | NodeJS.Timeout = null
+        if (duration) {
+            timer = setTimeout(() => {
+                deactivateConfetti()
+            }, duration)
+        }
 
-    useEffect(() => {
         return () => {
-
+            if (timer) {
+                clearTimeout(timer)
+            }
             stopConfetti();
-        };
+        }
     }, []);
 
-    return <canvas onClick={deactivateConfetti} className='fixed w-[100wh] h-[100vh] top-0 left-0 z-50' id="canvas" ref={canvasRef} />;
+    return <canvas className='fixed w-[100wh] h-[100vh] top-0 left-0 z-50' id="canvas" ref={canvasRef} />;
 };
 
 export default ConfettiEffect;
