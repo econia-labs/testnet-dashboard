@@ -33,8 +33,9 @@ const WalletView = (wallet: Wallet) => {
     const mobileSupport = wallet.deeplinkProvider;
 
     const onWalletConnectRequest = async (walletName: WalletName) => {
-        if (!isWalletReady) {
+        if (!isWalletReady && !(isRedirectable() && mobileSupport)) {
             window.open(getWalletHomePageUrl(wallet.name))
+            return
         }
         setConnecting(true)
         try {
@@ -60,20 +61,19 @@ const WalletView = (wallet: Wallet) => {
         // wallet has mobile app
         return (
             <button
-                className={`${connecting && 'animate-fadeBorder '} animate-fadeBorder flex items-center gap-11.55 font-jost text-base font-medium group transition-colors relative w-full border border-600 text-500 px-11.53 h-[45.38425px]  ${true ? "hover:border-blue" : "aaaa opacity-50 cursor-not-allowed"
+                className={`${connecting && 'animate-fadeBorder '} flex items-center gap-11.55 font-jost text-base font-medium group transition-colors relative w-full border border-600 text-500 px-11.53 h-[45.38425px]  ${true ? "hover:border-blue" : "aaaa opacity-50 cursor-not-allowed"
                     }`}
                 disabled={false || isLoading}
                 key={wallet.name}
                 onClick={() => onWalletConnectRequest(wallet.name)}
             >
-                <div className={`${!isWalletReady && 'disabled'} group-hover:[&:not(.disabled)]:text-blue transition-colors text-600 w-[25.73px] h-[25.73px]`}>
+                <div className={`${connecting && 'animate-fadeText '}  group-hover:[&:not(.disabled)]:text-blue transition-colors text-600`}>
                     <BridgeIcon />
-
                 </div>
 
                 <span>{wallet.name} Wallet</span>
 
-                <div className={` ${!isWalletReady && 'disabled'} transition-colors group-hover:[&:not(.disabled)_svg]:-rotate-45 [&_svg]:transition-transform group-hover:[&:not(.disabled)]:bg-blue group-hover:[&:not(.disabled)]:border-blue border border-600 absolute right-[-1px] bottom-[-1px] p-[4.23px] w-fit h-fit`}>
+                <div className={`${connecting && 'animate-fadeBg'} transition-colors group-hover:[&:not(.disabled)_svg]:-rotate-45 [&_svg]:transition-transform group-hover:[&:not(.disabled)]:bg-blue group-hover:[&:not(.disabled)]:border-blue border border-600 absolute right-[-1px] bottom-[-1px] p-[4.23px] w-fit h-fit`}>
                     <ArrowRightICon />
                 </div>
             </button>
