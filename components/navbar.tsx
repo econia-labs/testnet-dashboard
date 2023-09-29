@@ -72,6 +72,7 @@ const MenuItem = ({ item, responsive = false, toggleMenu }: { item: MenuItem, re
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { connected } = useWallet()
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -91,7 +92,10 @@ const Navbar = () => {
                     })
                 }
             </div>
-            <ConnectWalletButton responsive={true} />
+            {
+                connected ? <DisconnectWalletButton responsive={true} /> : <ConnectWalletButton responsive={true} />
+            }
+
             <div className='flex lg:hidden flex-col gap-8 h-7' onClick={toggleMenu} >
                 <OpenMenuIcon className={`transition duration-300 ease-in-out ${isOpen ? "rotate-135" : ""}`} />
                 <OpenMenuIcon className={`transition duration-300 ease-in-out ${isOpen ? "rotate-45 -translate-y-3.25" : ""}`} />

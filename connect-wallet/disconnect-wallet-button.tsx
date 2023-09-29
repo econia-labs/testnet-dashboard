@@ -1,6 +1,9 @@
 import React from 'react'
 import { jost } from '@/fonts/fonts'
 import { useWallet } from '@aptos-labs/wallet-adapter-react'
+import Modal from '@/components/modal'
+import { useBoolean } from 'usehooks-ts'
+import ConfettiEffect from '@/components/confetti-effect'
 
 interface DisConnectWalletButtonProps {
     responsive?: boolean
@@ -8,6 +11,8 @@ interface DisConnectWalletButtonProps {
 
 const DisconnectWalletButton = ({ responsive }: DisConnectWalletButtonProps) => {
     const { disconnect } = useWallet()
+    const { value: showConfetti, setFalse: onClose } = useBoolean(true)
+
     return (
         <>
             <button
@@ -16,6 +21,11 @@ const DisconnectWalletButton = ({ responsive }: DisConnectWalletButtonProps) => 
             >
                 Disconnect Wallet
             </button>
+            {
+                showConfetti && <ConfettiEffect duration={5000} onClose={onClose} />
+            }
+
+
 
         </>
 
