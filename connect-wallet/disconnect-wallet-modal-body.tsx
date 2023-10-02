@@ -12,7 +12,7 @@ const CopyButton = ({ value }: { value?: string }) => {
     useEffect(() => {
         let timer: null | NodeJS.Timeout = null
         if (copied) {
-            timer = setTimeout(() => setCopied(false), 5000)
+            timer = setTimeout(() => setCopied(false), 3000)
         }
 
         return () => {
@@ -44,7 +44,7 @@ const DisConnectWalletModalBody = () => {
     const { account, wallet, disconnect } = useWallet()
 
     return (
-        <div className={`px-8 pt-12 lg:px-[57.2px] pb-8 lg:pb-[39.27px] lg:pt-[24px]  ${jost.variable}`}>
+        <div className={`px-6 pt-12 lg:px-[57.2px] pb-8 lg:pb-[39.27px] lg:pt-[24px]  ${jost.variable}`}>
             <h1 className='text-white font-bold text-20 leading-52 text-center font-jost mb-[23.79px]'>Connect Wallet</h1>
 
             <div className='pb-[27.49px]'>
