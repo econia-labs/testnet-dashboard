@@ -1,0 +1,109 @@
+/* Typewriter effect: "Let the games begin" */
+@keyframes typing {
+    0% {
+        content: "";
+    }
+
+    4.76% {
+        content: "L";
+    }
+
+    9.52% {
+        content: "Le";
+    }
+
+    14.29% {
+        content: "Let";
+    }
+
+    19.05% {
+        content: "Let ";
+    }
+
+    23.81% {
+        content: "Let t";
+    }
+
+    28.57% {
+        content: "Let th";
+    }
+
+    33.33% {
+        content: "Let the";
+    }
+
+    38.10% {
+        content: "Let the ";
+    }
+
+    42.86% {
+        content: "Let the g";
+    }
+
+    47.62% {
+        content: "Let the ga";
+    }
+
+    52.38% {
+        content: "Let the gam";
+    }
+
+    57.14% {
+        content: "Let the game";
+    }
+
+    61.90% {
+        content: "Let the games";
+    }
+
+    66.67% {
+        content: "Let the games ";
+    }
+
+    71.43% {
+        content: "Let the games b";
+    }
+
+    76.19% {
+        content: "Let the games be";
+    }
+
+    80.95% {
+        content: "Let the games beg";
+    }
+
+    85.71% {
+        content: "Let the games begi";
+    }
+
+    90.48% {
+        content: "Let the games begin";
+    }
+
+    100% {
+        content: "Let the games begin";
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: white;
+    }
+}
+
+.typewriter::before {
+    content: "";
+    animation: typing 3s forwards;
+}
+
+.typewriter::after {
+    content: "";
+    border-right: 1ch solid white;
+    animation: blink 0.6s linear 5 forwards;
+}

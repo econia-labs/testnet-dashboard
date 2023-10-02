@@ -171,8 +171,6 @@ const config: Config = {
             borderColor: '#086CD9'
           },
         }
-
-
       },
       animation: {
         'fadeIn': 'fadeIn 0.5s linear 1',
@@ -183,6 +181,9 @@ const config: Config = {
       },
       zIndex: {
         '-1': '-1',
+      },
+      transitionDuration: {
+        '2000': '2000ms',
       },
       scale: {
         '96': '.96',
