@@ -271,6 +271,7 @@ const ConfettiEffect = ({ onClose, duration }: ConfettiEffectProps) => {
                 clearTimeout(timer)
             }
             stopConfetti();
+            deactivateConfetti()
         }
     }, []);
 

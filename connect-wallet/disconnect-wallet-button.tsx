@@ -21,7 +21,7 @@ const DisconnectWalletButton = ({ responsive }: DisConnectWalletButtonProps) => 
                 Disconnect Wallet
             </button>
             {
-                showConfetti && <ConfettiEffect duration={5000} onClose={onClose} />
+                showConfetti && <ConfettiEffect duration={2000} onClose={onClose} />
             }
             <Modal
                 className='!w-[425.6577px]'
