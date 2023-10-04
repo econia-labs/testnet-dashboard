@@ -23,18 +23,25 @@ const ConfettiEffect = ({ onClose, duration }: ConfettiEffectProps) => {
     let animationComplete = true;
 
     const colorOptions: string[] = [
-        'DodgerBlue',
-        'OliveDrab',
-        'Gold',
-        'pink',
-        'SlateBlue',
-        'lightblue',
-        'Violet',
-        'PaleGreen',
-        'SteelBlue',
-        'SandyBrown',
-        'Chocolate',
-        'Crimson',
+        // 'DodgerBlue',
+        // 'OliveDrab',
+        // 'Gold',
+        // 'pink',
+        // 'SlateBlue',
+        // 'lightblue',
+        // 'Violet',
+        // 'PaleGreen',
+        // 'SteelBlue',
+        // 'SandyBrown',
+        // 'Chocolate',
+        // 'Crimson',
+        "#086cd9",
+        "#56A7FD",
+        "#CD2F8D",
+        "#FD86CD",
+        "#2FA90F",
+        "#81FD63"
+
     ];
 
     const initializeCanvas = () => {
