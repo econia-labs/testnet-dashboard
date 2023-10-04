@@ -10,7 +10,6 @@ interface DisConnectWalletButtonProps {
 }
 
 const DisconnectWalletButton = ({ responsive }: DisConnectWalletButtonProps) => {
-    const { value: showConfetti, setFalse: onClose } = useBoolean(true)
     const { value: openModal, setFalse: setClose, setTrue: setOpen } = useBoolean(false)
     return (
         <>
@@ -20,9 +19,6 @@ const DisconnectWalletButton = ({ responsive }: DisConnectWalletButtonProps) => 
             >
                 Disconnect Wallet
             </button>
-            {
-                showConfetti && <ConfettiEffect duration={2000} onClose={onClose} />
-            }
             <Modal
                 className='!w-[425.6577px]'
                 open={openModal}
