@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation'
 
 import logo1 from '../public/logo1.svg';
 import Link from 'next/link';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { ArrowExternalRightIcon } from '@/icons/arrow-external-right-icon';
 import ConnectWalletButton from '../connect-wallet/connect-wallet-button';
 import { OpenMenuIcon } from '@/icons/open-menu-icon';
@@ -79,6 +79,27 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { connected } = useWallet()
     const { value: showConfetti, setFalse: onClose } = useBoolean(true)
+
+    useEffect(() => {
+        // Function to update isOpen based on window width
+        const updateIsOpen = () => {
+            const width = window.innerWidth;
+            // If width is equal or larger than 1024px, then close the menu
+            if (width >= 1024) setIsOpen(false);
+        };
+    
+        // Call the updateIsOpen function when the component mounts
+        updateIsOpen();
+    
+        // Attach an event listener to update isOpen when window width changes
+        window.addEventListener("resize", updateIsOpen);
+    
+        // Cleanup: remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener("resize", updateIsOpen);
+        };
+    }, [setIsOpen]);    
+
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
