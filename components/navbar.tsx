@@ -9,6 +9,8 @@ import ConnectWalletButton from '../connect-wallet/connect-wallet-button';
 import { OpenMenuIcon } from '@/icons/open-menu-icon';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import DisconnectWalletButton from '@/connect-wallet/disconnect-wallet-button';
+import ConfettiEffect from './confetti-effect';
+import { useBoolean } from 'usehooks-ts';
 
 export type MenuItem = {
     name: string;
@@ -76,6 +78,7 @@ const MenuItem = ({ item, responsive = false, toggleMenu }: { item: MenuItem, re
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { connected } = useWallet()
+    const { value: showConfetti, setFalse: onClose } = useBoolean(true)
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -104,6 +107,9 @@ const Navbar = () => {
                 <OpenMenuIcon className={`transition duration-300 ease-in-out ${isOpen ? "rotate-45 -translate-y-3.25" : ""}`} />
             </div>
             <SlidingMenu isOpen={isOpen} toggleMenu={toggleMenu} />
+            {
+                showConfetti && connected && <ConfettiEffect duration={2000} onClose={() => {}} />
+            }
         </div>
     )
 }
