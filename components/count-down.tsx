@@ -13,7 +13,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }: { days: number, 
         return (
             <div className='flex flex-col justify-around items-center w-149 h-67'>
                 <div className='text-14 text-500 leading-20'>REMAINING TIME</div>
-                <div className='w-full flex justify-around leading-20'>
+                <div className='w-full grid grid-flow-row grid-cols-4 leading-20'>
                     <div className='grid place-items-center'>
                         <div className='text-24'>
                             {days}
@@ -55,7 +55,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }: { days: number, 
 const CountDown = () => {
     return (
         <Countdown
-            date={Date.now() + 500000000}
+            date={Date.now() + 499982000}
             renderer={renderer}
         />
     )
