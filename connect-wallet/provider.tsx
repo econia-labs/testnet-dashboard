@@ -13,7 +13,7 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
         new PontemWallet(),
         new MartianWallet(),
         new RiseWallet(),
-        new FewchaWallet()
+        // new FewchaWallet()
     ];
 
     return (

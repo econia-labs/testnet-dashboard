@@ -2,18 +2,17 @@ import React from 'react'
 
 const ArrowRightICon = () => {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clipPath="url(#clip0_93_4692)">
-        <path d="M7.02246 2.74731L11.4817 7.20655L7.02246 11.6658" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
-        <path d="M11.1124 7.20654L1.99512 7.20654" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
+    <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_93_4692)">
+        <path d="M7.00781 2.18872L11.4671 6.64796L7.00781 11.1072" stroke="white" strokeWidth="2" strokeLinecap="square" />
+        <path d="M11.0977 6.64795L1.98047 6.64795" stroke="white" strokeWidth="2" strokeLinecap="square" />
       </g>
       <defs>
         <clipPath id="clip0_93_4692">
-          <rect width="12.649" height="12.649" fill="currentColor" transform="translate(0.414062 0.881836)" />
+          <rect width="12.649" height="12.649" fill="white" transform="translate(0.399414 0.323242)" />
         </clipPath>
       </defs>
     </svg>
-
   )
 }
 
