@@ -68,7 +68,7 @@ const DisConnectWalletModalBody = () => {
             <div className="flex justify-center">
                 <button
                     onClick={disconnect}
-                    className={` mx-auto inline py-[9px] px-[17.5px] bg-white tracking-[0.32px] uppercase text-800 text-16 whitespace-nowrap h-fit w-fit leading-18  font-bold hover:bg-300 transform transition-all duration-300 ease-in-out hover:translate-y-[-3px] hover:translate-z-[0.01px] hover:text800`}
+                    className={` mx-auto inline py-[9px] px-[17.5px] bg-white tracking-[0.32px] uppercase text-800 text-16 whitespace-nowrap h-fit w-fit leading-18  font-bold hover:bg-300 transform transition-all duration-300 ease-in-out hover:translate-y-[-3px] hover:translate-z-[0.01px] hover:text-800`}
                 >
                     Disconnect
                 </button>
