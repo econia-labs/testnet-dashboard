@@ -1,5 +1,5 @@
 import ArrowRightICon from "@/icons/arrow-right-icon";
-import BridgeIcon from "@/icons/bridge-icon";
+import PetraIcon from "@/icons/petra-icon";
 import {
     useWallet,
     WalletReadyState,
@@ -7,8 +7,18 @@ import {
     isRedirectable,
     WalletName,
 } from "@aptos-labs/wallet-adapter-react";
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { getWalletHomePageUrl } from "./constants";
+import PontemICon from "@/icons/pontem-icon";
+import MartianICon from "@/icons/martian-icon";
+import RiseICon from "@/icons/rise-icon";
+
+export const WALLET_ICON: { [key: string]: ReactElement } = {
+    petra: <PetraIcon />,
+    pontem: <PontemICon />,
+    martian: <MartianICon />,
+    rise: <RiseICon />
+}
 
 const WalletButtons = () => {
 
@@ -68,7 +78,9 @@ const WalletView = (wallet: Wallet) => {
                 onClick={() => onWalletConnectRequest(wallet.name)}
             >
                 <div className={`${connecting && 'animate-fadeText '}  group-hover:[&:not(.disabled)]:text-blue transition-colors text-600`}>
-                    <BridgeIcon />
+                    {
+                        WALLET_ICON[wallet.name.toLowerCase()]
+                    }
                 </div>
 
                 <span>{wallet.name} Wallet</span>
@@ -109,7 +121,9 @@ const WalletView = (wallet: Wallet) => {
                 onClick={() => onWalletConnectRequest(wallet.name)}
             >
                 <div className={`${connecting && 'animate-fadeText '}  group-hover:[&:not(.disabled)]:text-blue transition-colors text-600`}>
-                    <BridgeIcon />
+                    {
+                        WALLET_ICON[wallet.name.toLowerCase()]
+                    }
                 </div>
 
                 <span>{wallet.name} Wallet</span>
