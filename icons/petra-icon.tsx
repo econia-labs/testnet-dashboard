@@ -1,6 +1,6 @@
 import React from 'react'
 
-const BridgeIcon = () => {
+const PetraIcon = () => {
     return (
         <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_93_4693)">
@@ -16,4 +16,4 @@ const BridgeIcon = () => {
     )
 }
 
-export default BridgeIcon
+export default PetraIcon
