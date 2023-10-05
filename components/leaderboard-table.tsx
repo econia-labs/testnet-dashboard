@@ -13,77 +13,17 @@ const leaderboardRankings: leaderboardRanking[] = [
         trades: 33333,
         volume: 111111111.11,
         points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
-    {
-        name: 'econia.apt',
-        trades: 33333,
-        volume: 111111111.11,
-        points: 3
-    },
+    }
 ]
 
+const repeatArray = (arr: leaderboardRanking[], times: number) => {
+    return Array.from({ length: times }, () => arr).flat();
+};
+  
 const LeaderboardTable = () => {
-    return (
+    const repeatedRankings = repeatArray(leaderboardRankings, 30);
+    
+  return (
         <div className="flex items-center justify-center overflow-hidden w-317 sm:w-437 md:w-605 lg:w-757">
             <table className="w-full table-auto sm:table-fixed">
                 <thead>
@@ -114,7 +54,7 @@ const LeaderboardTable = () => {
                         </td>
                     </tr>
                     {
-                        leaderboardRankings.map((ranking: leaderboardRanking, index) => {
+                        repeatedRankings.map((ranking: leaderboardRanking, index) => {
                             return (
                                 <tr key={index} className={`text-center font-normal ${index % 2 === 0 ? 'bg-600 bg-opacity-20' : ''}`}>
                                     <td className={`py-5.64 ${index < 3 ? 'text-blue' : ''}`}>
