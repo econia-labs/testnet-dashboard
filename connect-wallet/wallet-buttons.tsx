@@ -8,7 +8,6 @@ import {
     WalletName,
 } from "@aptos-labs/wallet-adapter-react";
 import React, { ReactElement, useState } from 'react'
-import { getWalletHomePageUrl } from "./constants";
 import PontemICon from "@/icons/pontem-icon";
 import MartianICon from "@/icons/martian-icon";
 import RiseICon from "@/icons/rise-icon";
@@ -44,7 +43,7 @@ const WalletView = (wallet: Wallet) => {
 
     const onWalletConnectRequest = async (walletName: WalletName) => {
         if (!isWalletReady && !(isRedirectable() && mobileSupport)) {
-            window.open(getWalletHomePageUrl(wallet.name))
+            window.open(wallet.url)
             return
         }
         setConnecting(true)
