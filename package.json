@@ -19,6 +19,7 @@
     "aptos": "^1.20.0",
     "autoprefixer": "10.4.16",
     "axios": "^1.5.1",
+    "dayjs": "^1.11.10",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.2",
     "fewcha-plugin-wallet-adapter": "^0.1.3",
