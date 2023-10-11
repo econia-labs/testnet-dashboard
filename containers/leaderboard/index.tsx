@@ -6,6 +6,8 @@ import { getLeaderboard, getMetaData } from "@/services";
 import { leaderboardType, metadataType } from "@/types/leaderboard";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
+const POLL_INTERVAL = process.env.NEXT_PUBLIC_POLL_INTERVAL;
+
 const LeaderBoardContainer = () => {
   const { account } = useWallet();
   const [tableData, setTableData] = useState<leaderboardType[]>([]);
@@ -25,7 +27,12 @@ const LeaderBoardContainer = () => {
       const { data } = await getMetaData();
       if (data.length > 0) setMetadata(data[0]);
     };
+
     fetchMetadata();
+
+    const intervalId = setInterval(fetchMetadata, Number(POLL_INTERVAL));
+
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
@@ -49,13 +56,15 @@ const LeaderBoardContainer = () => {
       }
     };
     fetchLeaderboard();
+
+    const intervalId = setInterval(fetchLeaderboard, Number(POLL_INTERVAL));
+
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
     <div className="flex flex-col items-center w-317 sm:w-437 md:w-605 lg:w-757 m-auto max-h-[calc(100vh-86.65px)] lg:max-h-[calc(100vh-107.89px)] ">
-      <div className="mt-58">
-        <CountDown endTime={endTime} />
-      </div>
+      <div className="mt-58">{endTime && <CountDown endTime={endTime} />}</div>
       <div className="mt-44 hidden md:flex">
         <LeaderboardStats
           totalVolume={totalVolume}
