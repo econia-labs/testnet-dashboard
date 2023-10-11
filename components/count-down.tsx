@@ -42,7 +42,7 @@ const renderer = ({
 const CountDown = ({ endTime }: { endTime: string | undefined }) => {
   const timestamp = dayjs(endTime).valueOf(); // converted to user's timezone
 
-  return <Countdown date={timestamp || 0} renderer={renderer} />;
+  return <Countdown date={timestamp} renderer={renderer} />;
 };
 
 export default CountDown;
