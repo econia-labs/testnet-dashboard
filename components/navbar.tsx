@@ -78,7 +78,15 @@ const MenuItem = ({ item, responsive = false, toggleMenu }: { item: MenuItem, re
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { connected } = useWallet()
-    const { value: showConfetti, setFalse: onClose } = useBoolean(true)
+    const { value: showConfetti, setFalse: onClose, setTrue: onOpen } = useBoolean(false)
+
+    useEffect(() => {
+        const isNotAutoReconnect = window && document?.body?.getAttribute('connected') === '1'
+        if (isNotAutoReconnect && connected) {
+            onOpen()
+        }
+
+    }, [connected])
 
     useEffect(() => {
         // Function to update isOpen based on window width
@@ -87,18 +95,18 @@ const Navbar = () => {
             // If width is equal or larger than 1024px, then close the menu
             if (width >= 1024) setIsOpen(false);
         };
-    
+
         // Call the updateIsOpen function when the component mounts
         updateIsOpen();
-    
+
         // Attach an event listener to update isOpen when window width changes
         window.addEventListener("resize", updateIsOpen);
-    
+
         // Cleanup: remove the event listener when the component unmounts
         return () => {
             window.removeEventListener("resize", updateIsOpen);
         };
-    }, [setIsOpen]);    
+    }, [setIsOpen]);
 
 
     const toggleMenu = () => {
@@ -108,6 +116,7 @@ const Navbar = () => {
     const closeMenu = () => {
         setIsOpen(false);
     }
+
 
     return (
         <div className='flex justify-between items-center'>
@@ -133,7 +142,7 @@ const Navbar = () => {
             </div>
             <SlidingMenu isOpen={isOpen} toggleMenu={toggleMenu} />
             {
-                showConfetti && connected && <ConfettiEffect duration={2000} onClose={() => {}} />
+                showConfetti && connected && <ConfettiEffect duration={2000} onClose={onClose} />
             }
         </div>
     )
