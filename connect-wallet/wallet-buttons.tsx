@@ -46,6 +46,7 @@ const WalletView = (wallet: Wallet) => {
             window.open(wallet.url)
             return
         }
+        document.body.setAttribute('connected', "1")
         setConnecting(true)
         try {
             await connect(walletName);
