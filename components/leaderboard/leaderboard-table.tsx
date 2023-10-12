@@ -46,6 +46,8 @@ const LeaderboardTable = ({
       const intervalId = setInterval(fetchUserData, Number(POLL_INTERVAL));
 
       return () => clearInterval(intervalId);
+    } else {
+      setUserData(defaultUserData);
     }
   }, [loggedInUser, account?.address]);
 
