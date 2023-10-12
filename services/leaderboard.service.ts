@@ -3,9 +3,21 @@ import { getRequest } from "./axiosSetup";
 import { leaderboardType, metadataType } from "@/types/leaderboard";
 
 const COMP_ID = process.env.NEXT_PUBLIC_COMPETITION_ID;
+const LEADERBOARD_MAX_ROWS = process.env.NEXT_PUBLIC_LEADERBOARD_MAX_ROWS;
 
 export const getLeaderboard = async (): Promise<AxiosResponse<leaderboardType[]>> => {
-  const rs = await getRequest(`competition_leaderboard_users?competition_id=eq.${COMP_ID}&select=competition_exclusion_list(*)&competition_exclusion_list=not.is.null`);
+  const rs = await getRequest(`competition_leaderboard_users?limit=${LEADERBOARD_MAX_ROWS}&competition_id=eq.${COMP_ID}&is_eligible=eq.true&order=points.desc,volume.desc,n_trades.desc`);
+  return rs;
+};
+
+export const getEligibleUsers = async (): Promise<AxiosResponse<leaderboardType[]>> => {
+  const headers = { Prefer: 'count=estimated' };
+  const rs = await getRequest(`competition_leaderboard_users?competition_id=eq.${COMP_ID}&is_eligible=eq.true`, headers);
+  return rs;
+};
+
+export const getUserData = async (userAddress: string): Promise<AxiosResponse<leaderboardType[]>> => {
+  const rs = await getRequest(`competition_leaderboard_users?user=eq.${userAddress}`);
   return rs;
 };
 
