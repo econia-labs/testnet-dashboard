@@ -24,5 +24,5 @@ GET /competition_leaderboard_users?user=eq.ADDR
 ## Top 100
 
 ```http
-GET /competition_leaderboard_users?order=points.desc&limit=100
+GET /competition_leaderboard_users?limit=100
 ```
