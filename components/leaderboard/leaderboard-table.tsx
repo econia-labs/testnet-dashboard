@@ -102,7 +102,6 @@ const LeaderboardTable = ({
             return (
               <UserRow
                 key={index}
-                index={index}
                 trClassName={`text-center font-normal ${
                   index % 2 === 0 && "bg-600 bg-opacity-20"
                 }`}
