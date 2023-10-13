@@ -3,7 +3,6 @@ import React from "react";
 
 interface UserRowProps {
   trClassName: string;
-  index?: number;
   rank: number | string;
   userAddress: string;
   numberOfTrades: number | string;
@@ -13,18 +12,28 @@ interface UserRowProps {
 
 const UserRow = ({
   trClassName,
-  index,
   rank,
   userAddress,
   numberOfTrades,
   volume,
   points,
 }: UserRowProps) => {
+  const rankRenderer = () => {
+    switch (rank) {
+      case 1:
+        return "🥇";
+      case 2:
+        return "🥈";
+      case 3:
+        return "🥉";
+      default:
+        return rank;
+    }
+  };
+
   return (
     <tr className={trClassName}>
-      <td className={`py-5.64 ${index != null && index < 3 && "text-blue"}`}>
-        {rank}
-      </td>
+      <td className={`py-5.64`}>{rankRenderer()}</td>
       <td className="uppercase">
         {userAddress.length > 3 ? (
           <Link
