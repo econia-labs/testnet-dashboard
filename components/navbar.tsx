@@ -110,7 +110,8 @@ const MenuItem = ({
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { connected, account } = useWallet();
+  const { account } = useWallet();
+  console.log("🚀 ~ file: navbar.tsx:114 ~ Navbar ~ account:", account)
   const {
     value: showConfetti,
     setFalse: onClose,
@@ -123,7 +124,7 @@ const Navbar = () => {
     if (isNotAutoReconnect && account?.address) {
       onOpen();
     }
-  }, [connected]);
+  }, [account]);
 
   useEffect(() => {
     // Function to update isOpen based on window width
@@ -184,7 +185,7 @@ const Navbar = () => {
         />
       </div>
       <SlidingMenu isOpen={isOpen} toggleMenu={toggleMenu} />
-      {showConfetti && connected && (
+      {showConfetti && account?.address && (
         <ConfettiEffect duration={2000} onClose={onClose} />
       )}
     </div>
