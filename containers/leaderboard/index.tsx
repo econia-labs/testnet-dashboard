@@ -10,6 +10,7 @@ import { leaderboardType, metadataType } from "@/types/leaderboard";
 import LeaderboardTable from "@/components/leaderboard/leaderboard-table";
 import LeaderboardStats from "@/components/leaderboard/leaderboard-stats";
 import CountDown from "@/components/leaderboard/count-down";
+import FetchLoader from "@/components/leaderboard/fetch-loader";
 
 const POLL_INTERVAL = process.env.NEXT_PUBLIC_POLL_INTERVAL;
 
@@ -19,14 +20,9 @@ const LeaderBoardContainer = () => {
   const [totalTraders, setTotalTraders] = useState(0);
   const [metadata, setMetadata] = useState<metadataType>();
   const [totalTradingVolume, setTotalTradingVolume] = useState(0);
+  const [fetching, setFetching] = useState(false);
   const { prize } = metadata || {};
   const endTime = metadata?.end;
-
-  const totalVolume = useMemo(() => {
-    return tableData.reduce((acc, curr) => {
-      return acc + curr.volume;
-    }, 0);
-  }, [tableData]);
 
   const loggedInUserData: leaderboardType | undefined = useMemo(() => {
     if (account?.address) {
@@ -41,6 +37,7 @@ const LeaderBoardContainer = () => {
   }, [tableData, account]);
 
   useEffect(() => {
+    setFetching(true);
     const fetchData = async () => {
       const [
         { data: metadataResponse },
@@ -53,6 +50,7 @@ const LeaderBoardContainer = () => {
         getEligibleUsers(),
         getTotalTradingVolume(),
       ]);
+      setFetching(false);
 
       if (metadataResponse.length > 0) setMetadata(metadataResponse[0]);
 
@@ -74,6 +72,7 @@ const LeaderBoardContainer = () => {
 
   return (
     <div className="flex flex-col items-center w-317 sm:w-437 md:w-605 lg:w-757 m-auto max-h-[calc(100vh-86.65px)] lg:max-h-[calc(100vh-107.89px)] ">
+      {fetching && <FetchLoader />}
       <div className="mt-58">{endTime && <CountDown endTime={endTime} />}</div>
       <div className="mt-44 hidden md:flex">
         <LeaderboardStats

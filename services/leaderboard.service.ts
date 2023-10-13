@@ -30,3 +30,8 @@ export const getMetaData = async (): Promise<AxiosResponse<metadataType[]>> => {
   const rs = await getRequest(`competition_metadata?id=eq.${COMP_ID}`);
   return rs;
 };
+
+export const getExclusionList = async (userAddress: string): Promise<AxiosResponse<leaderboardType[]>> => {
+  const rs = await getRequest(`competition_exclusion_list?user=eq.${userAddress}`);
+  return rs;
+};
