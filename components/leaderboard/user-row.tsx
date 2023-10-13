@@ -28,6 +28,7 @@ const UserRow = ({
       <td className="uppercase">
         {userAddress.length > 3 ? (
           <Link
+            className="hover:text-blue"
             href={`https://explorer.aptoslabs.com/account/${userAddress}?network=testnet`}
             target="_blank"
           >
