@@ -7,7 +7,6 @@ const axiosClient = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    Prefer: 'count=estimated',
   },
   timeout: 4000,
   withCredentials: true,

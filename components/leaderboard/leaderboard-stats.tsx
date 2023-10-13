@@ -27,7 +27,10 @@ const LeaderboardStats = ({
   const stats = [
     {
       title: "TOTAL VOLUME",
-      value: `$${totalVolume.toLocaleString()}`,
+      value: `$${totalVolume.toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      })}`,
     },
     {
       title: "TRADERS",

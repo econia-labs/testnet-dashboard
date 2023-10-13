@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import { getEligibleUsers, getLeaderboard, getMetaData } from "@/services";
+import {
+  getEligibleUsers,
+  getLeaderboard,
+  getMetaData,
+  getTotalTradingVolume,
+} from "@/services";
 import { leaderboardType, metadataType } from "@/types/leaderboard";
 import LeaderboardTable from "@/components/leaderboard/leaderboard-table";
 import LeaderboardStats from "@/components/leaderboard/leaderboard-stats";
@@ -13,6 +18,7 @@ const LeaderBoardContainer = () => {
   const [tableData, setTableData] = useState<leaderboardType[]>([]);
   const [totalTraders, setTotalTraders] = useState(0);
   const [metadata, setMetadata] = useState<metadataType>();
+  const [totalTradingVolume, setTotalTradingVolume] = useState(0);
   const { prize } = metadata || {};
   const endTime = metadata?.end;
 
@@ -25,12 +31,10 @@ const LeaderBoardContainer = () => {
   const loggedInUserData: leaderboardType | undefined = useMemo(() => {
     if (account?.address) {
       let loggedInUser;
-      // Iterate through tableData to find user and rank
-      for (let i = 0; i < tableData.length; i++) {
-        if (tableData[i].user === account.address) {
-          loggedInUser = { ...tableData[i], rank: i + 1 };
-          break;
-        }
+      if (tableData.length > 0) {
+        loggedInUser = tableData.find(
+          (user) => user.user.toLowerCase() === account?.address.toLowerCase()
+        );
       }
       return loggedInUser;
     }
@@ -41,16 +45,24 @@ const LeaderBoardContainer = () => {
       const [
         { data: metadataResponse },
         { data: leaderboardResponse },
-        { data: eligibleUsersResponse },
+        { headers: eligibleUsersHeaders },
+        { data: totalTradingVolumeResponse },
       ] = await Promise.all([
         getMetaData(),
         getLeaderboard(),
         getEligibleUsers(),
+        getTotalTradingVolume(),
       ]);
 
       if (metadataResponse.length > 0) setMetadata(metadataResponse[0]);
+
       setTableData(leaderboardResponse);
-      setTotalTraders(eligibleUsersResponse.length);
+
+      const eligibleUsers = eligibleUsersHeaders["content-range"].split("/")[1];
+      setTotalTraders(eligibleUsers);
+
+      const totalVolume = totalTradingVolumeResponse[0].volume / 10 ** 6;
+      setTotalTradingVolume(totalVolume);
     };
 
     fetchData();
@@ -65,7 +77,7 @@ const LeaderBoardContainer = () => {
       <div className="mt-58">{endTime && <CountDown endTime={endTime} />}</div>
       <div className="mt-44 hidden md:flex">
         <LeaderboardStats
-          totalVolume={totalVolume}
+          totalVolume={totalTradingVolume}
           traders={totalTraders}
           prize={prize}
         />

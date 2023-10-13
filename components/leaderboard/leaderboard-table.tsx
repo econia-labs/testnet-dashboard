@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import UserRow from "./user-row";
 
 interface UserDataType {
-  rank?: number | string;
+  rank: number | string;
   user: string;
   volume: number | string;
   n_trades: number | string;
@@ -52,6 +52,7 @@ const LeaderboardTable = ({
   }, [loggedInUser, account?.address]);
 
   const {
+    rank,
     user: userAddress,
     volume,
     n_trades: numberOfTrades,
@@ -83,7 +84,7 @@ const LeaderboardTable = ({
         <tbody className="font-light">
           <UserRow
             trClassName="bg-blue bg-opacity-30 py-5.64 text-center font-normal"
-            rank={loggedInUser?.rank || "-"}
+            rank={rank}
             userAddress={userAddress}
             numberOfTrades={numberOfTrades}
             volume={volume}
@@ -91,6 +92,7 @@ const LeaderboardTable = ({
           />
           {tableData.map((user: leaderboardType, index) => {
             const {
+              rank,
               user: userAddress,
               volume,
               points,
@@ -103,7 +105,7 @@ const LeaderboardTable = ({
                 trClassName={`text-center font-normal ${
                   index % 2 === 0 && "bg-600 bg-opacity-20"
                 }`}
-                rank={index + 1}
+                rank={rank}
                 userAddress={userAddress}
                 numberOfTrades={numberOfTrades}
                 volume={volume}
