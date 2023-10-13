@@ -39,12 +39,11 @@ const SlidingMenu = ({
   isOpen: boolean;
   toggleMenu: () => void;
 }) => {
-  const { connected } = useWallet();
+  const { account } = useWallet();
   return (
     <div
-      className={`flex flex-col gap-40 z-10 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${
-        isOpen ? "w-full" : "w-0"
-      }`}
+      className={`flex flex-col gap-40 z-10 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${isOpen ? "w-full" : "w-0"
+        }`}
     >
       <div className="flex flex-col pt-52 justify-between items-start gap-23.68">
         {menuList.map((item: MenuItem, index: number) => {
@@ -58,7 +57,7 @@ const SlidingMenu = ({
           );
         })}
       </div>
-      {connected ? <DisconnectWalletButton /> : <ConnectWalletButton />}
+      {account?.address ? <DisconnectWalletButton /> : <ConnectWalletButton />}
     </div>
   );
 };
@@ -87,9 +86,8 @@ const MenuItem = ({
           {item.name.toUpperCase()}
         </Link>
         <span
-          className={`text-600 text-24 font-light ${
-            responsive ? "hidden" : ""
-          }`}
+          className={`text-600 text-24 font-light ${responsive ? "hidden" : ""
+            }`}
         >
           /
         </span>
@@ -112,7 +110,7 @@ const MenuItem = ({
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { connected } = useWallet();
+  const { connected, account } = useWallet();
   const {
     value: showConfetti,
     setFalse: onClose,
@@ -122,7 +120,7 @@ const Navbar = () => {
   useEffect(() => {
     const isNotAutoReconnect =
       window && document?.body?.getAttribute("connected") === "1";
-    if (isNotAutoReconnect && connected) {
+    if (isNotAutoReconnect && account?.address) {
       onOpen();
     }
   }, [connected]);
@@ -169,7 +167,7 @@ const Navbar = () => {
           return <MenuItem key={index} item={item} toggleMenu={closeMenu} />;
         })}
       </div>
-      {connected ? (
+      {account?.address ? (
         <DisconnectWalletButton responsive={true} />
       ) : (
         <ConnectWalletButton responsive={true} />
@@ -177,14 +175,12 @@ const Navbar = () => {
 
       <div className="flex lg:hidden flex-col gap-8 h-7" onClick={toggleMenu}>
         <OpenMenuIcon
-          className={`transition duration-300 ease-in-out ${
-            isOpen ? "rotate-135" : ""
-          }`}
+          className={`transition duration-300 ease-in-out ${isOpen ? "rotate-135" : ""
+            }`}
         />
         <OpenMenuIcon
-          className={`transition duration-300 ease-in-out ${
-            isOpen ? "rotate-45 -translate-y-3.25" : ""
-          }`}
+          className={`transition duration-300 ease-in-out ${isOpen ? "rotate-45 -translate-y-3.25" : ""
+            }`}
         />
       </div>
       <SlidingMenu isOpen={isOpen} toggleMenu={toggleMenu} />
