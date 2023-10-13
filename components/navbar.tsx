@@ -20,11 +20,11 @@ export type MenuItem = {
 const menuList = [
   {
     name: "Trade",
-    link: "/",
+    link: "/trade",
   },
   {
     name: "Leaderboard",
-    link: "/leaderboard",
+    link: "/",
   },
   {
     name: "Rules",
