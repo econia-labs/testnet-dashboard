@@ -5,7 +5,7 @@ export interface leaderboardType {
     n_trades: number;
     points: number;
     competition_id: number;
-    rank?: number;
+    rank: number;
 }
 
 export interface metadataType {

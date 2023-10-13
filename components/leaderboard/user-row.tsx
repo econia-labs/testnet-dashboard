@@ -38,7 +38,14 @@ const UserRow = ({
         )}
       </td>
       <td>{numberOfTrades.toLocaleString()}</td>
-      <td className="hidden lg:table-cell">{volume.toLocaleString()}</td>
+      <td className="hidden lg:table-cell">
+        {typeof volume === "string"
+          ? volume
+          : (volume / 10 ** 6).toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 2,
+            })}
+      </td>
       <td className="hidden md:table-cell">{points.toLocaleString()}</td>
     </tr>
   );
