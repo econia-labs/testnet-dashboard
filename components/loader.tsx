@@ -18,7 +18,7 @@ const Loader = ({ animationFinished }: { animationFinished: boolean }) => {
     >
       <div className="flex flex-col items-center gap-30">
         <Image
-          className={`w-[150px] h-auto transition-opacity duration-700 ease-in-out opacity-${imageOpacity}`}
+          className={`w-[150px] h-auto transition-opacity duration-1000 ease-in-out opacity-${imageOpacity}`}
           src={logo1}
           alt="logo"
         />
