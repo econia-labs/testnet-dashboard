@@ -7,12 +7,13 @@ import {
     AptosWalletAdapterProvider, WalletName, useWallet,
 } from "@aptos-labs/wallet-adapter-react";
 import { FC, ReactNode, useEffect } from "react";
+
 const AutoConnectTrigger = () => {
     const { connected, connect } = useWallet()
 
     useEffect(() => {
         const f = async (retry: number) => {
-            if (retry > 1) {
+            if (retry > 5) {
                 return
             }
             const connectedWallet = localStorage.getItem('AptosWalletName')
@@ -37,6 +38,7 @@ const AutoConnectTrigger = () => {
     return null
 }
 const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
+    // const { value: render, setTrue } = useBoolean(false)
     const wallets = [
         new PetraWallet(),
         new PontemWallet(),
@@ -44,6 +46,14 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
         new RiseWallet(),
         // new FewchaWallet()
     ];
+    // useEffect(setTrue)
+
+    // if (!render) {
+    //     console.log("Hello");
+
+    //     return null // auto connect purpose
+    // }
+
 
     return (
         <AptosWalletAdapterProvider
