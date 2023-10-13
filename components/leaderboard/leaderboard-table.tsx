@@ -1,4 +1,4 @@
-import { getUserData } from "@/services";
+import { getExclusionList, getUserData } from "@/services";
 import { leaderboardType } from "@/types/leaderboard";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useEffect, useState } from "react";
@@ -38,8 +38,10 @@ const LeaderboardTable = ({
       setUserData(loggedInUser);
     } else if (!loggedInUser && account?.address) {
       const fetchUserData = async () => {
-        const { data } = await getUserData(account?.address);
-        setUserData(data[0]);
+        const { data: userData } = await getUserData(account.address);
+        const { data: exclusionList } = await getExclusionList(account.address);
+        console.log(exclusionList);
+        setUserData(userData[0]);
       };
       fetchUserData();
 
