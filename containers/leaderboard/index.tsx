@@ -1,17 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
-import CountDown from "@/components/count-down";
-import LeaderboardStats from "@/components/leaderboard-stats";
-import LeaderboardTable from "@/components/leaderboard-table";
-import { getLeaderboard, getMetaData } from "@/services";
-import { leaderboardType, metadataType } from "@/types/leaderboard";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { getEligibleUsers, getLeaderboard, getMetaData } from "@/services";
+import { leaderboardType, metadataType } from "@/types/leaderboard";
+import LeaderboardTable from "@/components/leaderboard/leaderboard-table";
+import LeaderboardStats from "@/components/leaderboard/leaderboard-stats";
+import CountDown from "@/components/leaderboard/count-down";
 
 const POLL_INTERVAL = process.env.NEXT_PUBLIC_POLL_INTERVAL;
 
 const LeaderBoardContainer = () => {
   const { account } = useWallet();
   const [tableData, setTableData] = useState<leaderboardType[]>([]);
-  const [loggedInUser, setLoggedInUser] = useState<leaderboardType>();
+  const [totalTraders, setTotalTraders] = useState(0);
   const [metadata, setMetadata] = useState<metadataType>();
   const { prize } = metadata || {};
   const endTime = metadata?.end;
@@ -22,42 +22,40 @@ const LeaderBoardContainer = () => {
     }, 0);
   }, [tableData]);
 
-  useEffect(() => {
-    const fetchMetadata = async () => {
-      const { data } = await getMetaData();
-      if (data.length > 0) setMetadata(data[0]);
-    };
-
-    fetchMetadata();
-
-    const intervalId = setInterval(fetchMetadata, Number(POLL_INTERVAL));
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    const fetchLeaderboard = async () => {
-      const { data: leaderboardEntries } = await getLeaderboard();
-      setTableData(leaderboardEntries);
-      // If user is logged in, get user's data from the leaderboard and get the index of the user
-      if (account?.address) {
-        let loggedInUser = null;
-        // Iterate through leaderboardEntries to find user and rank
-        for (let i = 0; i < leaderboardEntries.length; i++) {
-          if (leaderboardEntries[i].user === account.address) {
-            loggedInUser = { ...leaderboardEntries[i], rank: i + 1 };
-            break;
-          }
-        }
-
-        if (loggedInUser) {
-          setLoggedInUser(loggedInUser);
+  const loggedInUserData: leaderboardType | undefined = useMemo(() => {
+    if (account?.address) {
+      let loggedInUser;
+      // Iterate through tableData to find user and rank
+      for (let i = 0; i < tableData.length; i++) {
+        if (tableData[i].user === account.address) {
+          loggedInUser = { ...tableData[i], rank: i + 1 };
+          break;
         }
       }
-    };
-    fetchLeaderboard();
+      return loggedInUser;
+    }
+  }, [tableData, account]);
 
-    const intervalId = setInterval(fetchLeaderboard, Number(POLL_INTERVAL));
+  useEffect(() => {
+    const fetchData = async () => {
+      const [
+        { data: metadataResponse },
+        { data: leaderboardResponse },
+        { data: eligibleUsersResponse },
+      ] = await Promise.all([
+        getMetaData(),
+        getLeaderboard(),
+        getEligibleUsers(),
+      ]);
+
+      if (metadataResponse.length > 0) setMetadata(metadataResponse[0]);
+      setTableData(leaderboardResponse);
+      setTotalTraders(eligibleUsersResponse.length);
+    };
+
+    fetchData();
+
+    const intervalId = setInterval(fetchData, Number(POLL_INTERVAL));
 
     return () => clearInterval(intervalId);
   }, []);
@@ -68,12 +66,15 @@ const LeaderBoardContainer = () => {
       <div className="mt-44 hidden md:flex">
         <LeaderboardStats
           totalVolume={totalVolume}
-          traders={tableData.length}
+          traders={totalTraders}
           prize={prize}
         />
       </div>
       <div className="mt-42 md:mt-52 lg:mt-36 grow overflow-y-scroll no-scrollbar">
-        <LeaderboardTable tableData={tableData} loggedInUser={loggedInUser} />
+        <LeaderboardTable
+          tableData={tableData}
+          loggedInUser={loggedInUserData}
+        />
       </div>
       <div className="fixed bottom-0 w-full h-290 bg-gradient-to-b from-transparent to-black pointer-events-none"></div>
     </div>

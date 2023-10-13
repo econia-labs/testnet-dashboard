@@ -9,12 +9,14 @@ const axiosClient = axios.create({
     Accept: "application/json",
     Prefer: 'count=estimated',
   },
-  timeout: 2000,
-  // withCredentials: true,
+  timeout: 4000,
+  withCredentials: true,
 });
 
-export const getRequest = async (url: string) => {
-  return axiosClient.get(`/${url}`).then((response) => response);
+export const getRequest = async (url: string, headers?: Record<string, string>) => {
+  return axiosClient
+  .get(`/${url}`, { headers })
+  .then((response) => response);
 };
 
 export const postRequest = async (url: string, payload: unknown) => {
