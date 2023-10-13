@@ -1,16 +1,16 @@
-import React from 'react'
-import TradeContainer from '@/containers/trade'
-import Head from 'next/head'
+import React from "react";
+import Head from "next/head";
+import LeaderBoardContainer from "@/containers/leaderboard";
 
 const Home = () => {
   return (
     <>
       <Head>
-        <title>Econia - Trade</title>
+        <title>Econia - Leaderboard</title>
       </Head>
-      <TradeContainer />
+      <LeaderBoardContainer />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
