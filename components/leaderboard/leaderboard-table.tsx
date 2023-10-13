@@ -39,9 +39,8 @@ const LeaderboardTable = ({
     } else if (!loggedInUser && account?.address) {
       const fetchUserData = async () => {
         const { data: userData } = await getUserData(account.address);
-        const { data: exclusionList } = await getExclusionList(account.address);
-        console.log(exclusionList);
-        setUserData(userData[0]);
+        // const { data: exclusionList } = await getExclusionList(account.address);
+        if (userData.length > 0) setUserData(userData[0]);
       };
       fetchUserData();
 
