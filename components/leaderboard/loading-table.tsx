@@ -8,20 +8,20 @@ const LoadingTable = () => {
       {rows.map((_, index) => {
         return (
           <tr key={index}>
-            <td>
-              <Skeleton height={35.25} />
+            <td className="pb-2 text-center">
+              <Skeleton width={"75%"} height={20} />
             </td>
-            <td>
-              <Skeleton height={35.25} />
+            <td className="pb-2 text-center">
+              <Skeleton width={"75%"} height={20} />
             </td>
-            <td>
-              <Skeleton height={35.25} />
+            <td className="pb-2 text-center">
+              <Skeleton width={"75%"} height={20} />
             </td>
-            <td className="hidden lg:table-cell">
-              <Skeleton height={35.25} />
+            <td className="hidden lg:table-cell pb-2 text-center">
+              <Skeleton width={"75%"} height={20} />
             </td>
-            <td className="hidden md:table-cell">
-              <Skeleton height={35.25} />
+            <td className="hidden md:table-cell pb-2 text-center">
+              <Skeleton width={"75%"} height={20} />
             </td>
           </tr>
         );
