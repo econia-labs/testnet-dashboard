@@ -33,7 +33,7 @@ const UserRow = ({
 
   return (
     <tr className={trClassName}>
-      <td className={`py-5.64`}>{rankRenderer()}</td>
+      <td className="py-5.64">{rankRenderer()}</td>
       <td className="uppercase">
         {userAddress.length > 3 ? (
           <Link
@@ -41,7 +41,12 @@ const UserRow = ({
             href={`https://explorer.aptoslabs.com/account/${userAddress}?network=testnet`}
             target="_blank"
           >
-            {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
+            <span className="hidden xsm:block">
+              {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
+            </span>
+            <span className="block xsm:hidden">
+              {userAddress.slice(0, 3)}..
+            </span>
           </Link>
         ) : (
           userAddress

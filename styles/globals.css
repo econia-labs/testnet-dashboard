@@ -42,3 +42,9 @@
     }
   }
 }
+
+@media (max-height: 400px) {
+  .leaderboard-page-container {
+    max-height: fit-content;
+  }
+}
