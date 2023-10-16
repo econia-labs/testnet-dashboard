@@ -1,24 +1,26 @@
 import PartnerCard from "@/components/partner-card";
 import Image from "next/image";
 import React from "react";
-import AriesLogo from "../../icons/aries-logo.svg";
-import GatorLogo from "../../icons/gator-logo.svg";
-import KanaLogo from "../../icons/kana-logo.svg";
+import Partner_1 from "../../partner-logos/partner-1.svg";
+import Partner_2 from "../../partner-logos/partner-2.svg";
+import Partner_3 from "../../partner-logos/partner-3.png";
 import { partnerType } from "@/types/partner";
 
 const partnerList: partnerType[] = [
   {
     name: "Aries Markets",
-    logo: AriesLogo,
-    link: "https://app.ariesmarkets.xyz/trading?market=3",
+    logo: Partner_1,
+    link: process.env.NEXT_PUBLIC_TRADING_VIEW_PARTNER_LINK_1,
   },
   {
     name: "Gator Exchange",
-    logo: GatorLogo,
+    logo: Partner_2,
+    link: process.env.NEXT_PUBLIC_TRADING_VIEW_PARTNER_LINK_2,
   },
   {
     name: "Kana Exchange",
-    logo: KanaLogo,
+    logo: Partner_3,
+    link: process.env.NEXT_PUBLIC_TRADING_VIEW_PARTNER_LINK_3,
   },
 ];
 
