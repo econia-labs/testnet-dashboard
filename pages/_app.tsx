@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import "@/styles/globals.css";
 import "@/styles/loader.css";
 import "@/styles/fetch-loader.css";
+import "@/styles/heart.css";
 import Layout from "@/components/layout";
 import Web3Provider from "@/connect-wallet/provider";
 
