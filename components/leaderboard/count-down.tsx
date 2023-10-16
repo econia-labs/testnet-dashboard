@@ -14,7 +14,7 @@ const CountDownComponent = ({
   hours: number;
   minutes: number;
   seconds: number;
-  endTime?: string | undefined;
+  endTime: string | undefined;
 }) => {
   return (
     <div className="flex flex-col justify-around items-center w-149 h-67">
