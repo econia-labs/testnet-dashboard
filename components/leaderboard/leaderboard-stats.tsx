@@ -1,11 +1,12 @@
-import React from "react";
+import React, { ReactElement } from "react";
+import Skeleton from "react-loading-skeleton";
 
 const StatCard = ({
   title,
   value,
 }: {
   title: string;
-  value: string | number;
+  value: string | number | ReactElement;
 }) => {
   return (
     <div className="border-1 border-600 flex flex-col justify-center items-center gap-6 w-224 h-81 leading-18">
@@ -19,26 +20,32 @@ const LeaderboardStats = ({
   totalVolume,
   traders,
   prize = 0,
+  fetching,
 }: {
   totalVolume: number;
   traders: number;
   prize: number | undefined;
+  fetching: boolean;
 }) => {
   const stats = [
     {
       title: "TOTAL VOLUME",
-      value: `$${totalVolume.toLocaleString(undefined, {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2,
-      })}`,
+      value: fetching ? (
+        <Skeleton width={100} />
+      ) : (
+        `$${totalVolume.toLocaleString(undefined, {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2,
+        })}`
+      ),
     },
     {
       title: "TRADERS",
-      value: traders.toLocaleString(),
+      value: fetching ? <Skeleton width={100} /> : traders.toLocaleString(),
     },
     {
       title: "TOTAL PRIZES",
-      value: `$${prize.toLocaleString()}`,
+      value: fetching ? <Skeleton width={100} /> : `$${prize.toLocaleString()}`,
     },
   ];
 

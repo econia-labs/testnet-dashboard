@@ -3,6 +3,7 @@ import { leaderboardType } from "@/types/leaderboard";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useEffect, useState } from "react";
 import UserRow from "./user-row";
+import LoadingTable from "./loading-table";
 
 interface UserDataType {
   rank: number | string;
@@ -15,9 +16,11 @@ interface UserDataType {
 const POLL_INTERVAL = process.env.NEXT_PUBLIC_POLL_INTERVAL;
 
 const LeaderboardTable = ({
+  fetching,
   tableData,
   loggedInUser,
 }: {
+  fetching: boolean;
   tableData: leaderboardType[];
   loggedInUser: leaderboardType | undefined;
 }) => {
@@ -41,9 +44,9 @@ const LeaderboardTable = ({
         const { data: userData } = await getUserData(account.address);
         // const { data: exclusionList } = await getExclusionList(account.address);
         if (userData.length > 0) {
-          setUserData(userData[0])
+          setUserData(userData[0]);
         } else {
-          setUserData(defaultUserData)
+          setUserData(defaultUserData);
         }
       };
       fetchUserData();
@@ -86,37 +89,42 @@ const LeaderboardTable = ({
             </th>
           </tr>
         </thead>
-        <tbody className="font-light">
-          <UserRow
-            trClassName="bg-blue bg-opacity-30 py-5.64 text-center font-normal"
-            rank={rank}
-            userAddress={userAddress}
-            numberOfTrades={numberOfTrades}
-            volume={volume}
-            points={points}
-          />
-          {tableData.map((user: leaderboardType, index) => {
-            const {
-              rank,
-              user: userAddress,
-              volume,
-              points,
-              n_trades: numberOfTrades,
-            } = user;
-            return (
-              <UserRow
-                key={index}
-                trClassName={`text-center font-normal ${index % 2 === 0 && "bg-600 bg-opacity-20"
+        {fetching ? (
+          <LoadingTable />
+        ) : (
+          <tbody className="font-light">
+            <UserRow
+              trClassName="bg-blue bg-opacity-30 py-5.64 text-center font-normal"
+              rank={rank}
+              userAddress={userAddress}
+              numberOfTrades={numberOfTrades}
+              volume={volume}
+              points={points}
+            />
+            {tableData.map((user: leaderboardType, index) => {
+              const {
+                rank,
+                user: userAddress,
+                volume,
+                points,
+                n_trades: numberOfTrades,
+              } = user;
+              return (
+                <UserRow
+                  key={index}
+                  trClassName={`text-center font-normal ${
+                    index % 2 === 0 && "bg-600 bg-opacity-20"
                   }`}
-                rank={rank}
-                userAddress={userAddress}
-                numberOfTrades={numberOfTrades}
-                volume={volume}
-                points={points}
-              />
-            );
-          })}
-        </tbody>
+                  rank={rank}
+                  userAddress={userAddress}
+                  numberOfTrades={numberOfTrades}
+                  volume={volume}
+                  points={points}
+                />
+              );
+            })}
+          </tbody>
+        )}
       </table>
     </div>
   );
