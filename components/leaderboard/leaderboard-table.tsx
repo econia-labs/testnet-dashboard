@@ -89,7 +89,7 @@ const LeaderboardTable = ({
             </th>
           </tr>
         </thead>
-        {!fetching ? (
+        {fetching ? (
           <LoadingTable />
         ) : (
           <tbody className="font-light">
