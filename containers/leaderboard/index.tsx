@@ -72,10 +72,12 @@ const LeaderBoardContainer = () => {
 
   return (
     <div className="leaderboard-page-container flex flex-col items-center w-317 sm:w-437 md:w-605 lg:w-757 m-auto max-h-[calc(100vh-86.65px)] lg:max-h-[calc(100vh-107.89px)] ">
-      {fetching && <FetchLoader />}
-      <div className="mt-58">{endTime && <CountDown endTime={endTime} />}</div>
+      <div className="mt-58">
+        <CountDown endTime={endTime} />
+      </div>
       <div className="mt-44 hidden md:flex">
         <LeaderboardStats
+          fetching={fetching}
           totalVolume={totalTradingVolume}
           traders={totalTraders}
           prize={prize}
@@ -83,6 +85,7 @@ const LeaderBoardContainer = () => {
       </div>
       <div className="mt-42 md:mt-52 lg:mt-36 grow overflow-y-scroll no-scrollbar">
         <LeaderboardTable
+          fetching={fetching}
           tableData={tableData}
           loggedInUser={loggedInUserData}
         />
