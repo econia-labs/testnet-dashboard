@@ -68,7 +68,7 @@ const LeaderboardTable = ({
             <th className="text-12 text-500 uppercase text-center font-normal">
               Rank
             </th>
-            <th className="text-12 text-500 uppercase text-center font-normal">
+            <th className="text-12 text-500 uppercase text-center font-normal w-2 xsm:w-auto">
               Trader
             </th>
             <th className="text-12 text-500 uppercase text-center font-normal hidden lg:table-cell">
