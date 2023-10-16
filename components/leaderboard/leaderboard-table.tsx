@@ -1,4 +1,4 @@
-import { getExclusionList, getUserData } from "@/services";
+import { getUserData } from "@/services";
 import { leaderboardType } from "@/types/leaderboard";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ interface UserDataType {
   volume: number | string;
   n_trades: number | string;
   points: number | string;
+  is_eligible?: boolean;
 }
 
 const POLL_INTERVAL = process.env.NEXT_PUBLIC_POLL_INTERVAL;
@@ -32,6 +33,7 @@ const LeaderboardTable = ({
     volume: "-",
     n_trades: "-",
     points: "-",
+    is_eligible: true,
   };
 
   const [userData, setUserData] = useState<UserDataType>(defaultUserData);
@@ -42,7 +44,6 @@ const LeaderboardTable = ({
     } else if (!loggedInUser && account?.address) {
       const fetchUserData = async () => {
         const { data: userData } = await getUserData(account.address);
-        // const { data: exclusionList } = await getExclusionList(account.address);
         if (userData.length > 0) {
           setUserData(userData[0]);
         } else {
@@ -65,6 +66,7 @@ const LeaderboardTable = ({
     volume,
     n_trades: numberOfTrades,
     points,
+    is_eligible,
   } = userData;
 
   return (
@@ -95,11 +97,11 @@ const LeaderboardTable = ({
           <tbody className="font-light">
             <UserRow
               trClassName="bg-blue bg-opacity-30 py-5.64 text-center font-normal"
-              rank={rank}
+              rank={is_eligible === false ? 0 : rank}
               userAddress={userAddress}
-              numberOfTrades={numberOfTrades}
-              volume={volume}
-              points={points}
+              numberOfTrades={is_eligible === false ? 0 : numberOfTrades}
+              volume={is_eligible === false ? 0 : volume}
+              points={is_eligible === false ? 0 : points}
             />
             {tableData.map((user: leaderboardType, index) => {
               const {
