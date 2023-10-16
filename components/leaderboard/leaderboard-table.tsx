@@ -40,7 +40,11 @@ const LeaderboardTable = ({
       const fetchUserData = async () => {
         const { data: userData } = await getUserData(account.address);
         // const { data: exclusionList } = await getExclusionList(account.address);
-        if (userData.length > 0) setUserData(userData[0]);
+        if (userData.length > 0) {
+          setUserData(userData[0])
+        } else {
+          setUserData(defaultUserData)
+        }
       };
       fetchUserData();
 
@@ -102,9 +106,8 @@ const LeaderboardTable = ({
             return (
               <UserRow
                 key={index}
-                trClassName={`text-center font-normal ${
-                  index % 2 === 0 && "bg-600 bg-opacity-20"
-                }`}
+                trClassName={`text-center font-normal ${index % 2 === 0 && "bg-600 bg-opacity-20"
+                  }`}
                 rank={rank}
                 userAddress={userAddress}
                 numberOfTrades={numberOfTrades}
