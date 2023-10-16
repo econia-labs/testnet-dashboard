@@ -22,7 +22,7 @@ export const getTotalTradingVolume = async (): Promise<AxiosResponse<leaderboard
 };
 
 export const getUserData = async (userAddress: string): Promise<AxiosResponse<leaderboardType[]>> => {
-  const rs = await getRequest(`competition_leaderboard_users?user=eq.${userAddress}`);
+  const rs = await getRequest(`competition_leaderboard_users?user=eq.${userAddress}&select=*,is_eligible`);
   return rs;
 };
 
