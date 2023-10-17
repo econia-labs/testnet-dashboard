@@ -20,7 +20,7 @@ const LeaderBoardContainer = () => {
   const [totalTraders, setTotalTraders] = useState(0);
   const [metadata, setMetadata] = useState<metadataType>();
   const [totalTradingVolume, setTotalTradingVolume] = useState(0);
-  const [fetching, setFetching] = useState(false);
+  const [fetching, setFetching] = useState(true);
   const { prize } = metadata || {};
   const endTime = metadata?.end;
 
@@ -37,7 +37,6 @@ const LeaderBoardContainer = () => {
   }, [tableData, account]);
 
   useEffect(() => {
-    setFetching(true);
     const fetchData = async () => {
       const [
         { data: metadataResponse },
