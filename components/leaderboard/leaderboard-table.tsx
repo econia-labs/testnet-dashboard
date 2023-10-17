@@ -62,13 +62,15 @@ const LeaderboardTable = ({
   }, [loggedInUser, account?.address]);
 
   const {
-    rank,
+    rank: loggedInUserRank,
     user: userAddress,
     volume,
     n_trades: numberOfTrades,
     points,
     is_eligible,
   } = userData;
+
+  const loggedInUserInTop5 = Number(loggedInUserRank) <= 5;
 
   return (
     <div className="flex items-center justify-center overflow-hidden w-317 sm:w-437 md:w-605 lg:w-757">
@@ -96,14 +98,16 @@ const LeaderboardTable = ({
           <LoadingTable />
         ) : (
           <tbody className="font-light">
-            <UserRow
-              trClassName="bg-blue bg-opacity-30 py-5.64 text-center font-normal"
-              rank={is_eligible === false ? 0 : rank}
-              userAddress={userAddress}
-              numberOfTrades={is_eligible === false ? 0 : numberOfTrades}
-              volume={is_eligible === false ? 0 : volume}
-              points={is_eligible === false ? 0 : points}
-            />
+            {!loggedInUserInTop5 && (
+              <UserRow
+                trClassName="bg-blue bg-opacity-30 text-center font-normal"
+                rank={is_eligible === false ? 0 : loggedInUserRank}
+                userAddress={userAddress}
+                numberOfTrades={is_eligible === false ? 0 : numberOfTrades}
+                volume={is_eligible === false ? 0 : volume}
+                points={is_eligible === false ? 0 : points}
+              />
+            )}
             {tableData.map((user: leaderboardType, index) => {
               const {
                 rank,
@@ -112,12 +116,11 @@ const LeaderboardTable = ({
                 points,
                 n_trades: numberOfTrades,
               } = user;
+              const highlightRow = userAddress === trimLeadingZero(account?.address) && loggedInUserInTop5;
               return (
                 <UserRow
                   key={index}
-                  trClassName={`text-center font-normal ${
-                    index % 2 === 0 && "bg-600 bg-opacity-20"
-                  }`}
+                  trClassName={`text-center font-normal ${index % 2 === 0 && "bg-600 bg-opacity-20"} ${highlightRow && "bg-blue bg-opacity-30"}`}
                   rank={rank}
                   userAddress={userAddress}
                   numberOfTrades={numberOfTrades}
