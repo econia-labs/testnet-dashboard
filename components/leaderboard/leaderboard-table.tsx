@@ -4,6 +4,7 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useEffect, useState } from "react";
 import UserRow from "./user-row";
 import LoadingTable from "./loading-table";
+import { trimLeadingZero } from "@/utils/address-utils";
 
 interface UserDataType {
   rank: number | string;
@@ -29,7 +30,7 @@ const LeaderboardTable = ({
 
   const defaultUserData: UserDataType = {
     rank: "-",
-    user: account?.address || "YOU",
+    user: trimLeadingZero(account?.address) || "YOU",
     volume: "-",
     n_trades: "-",
     points: "-",

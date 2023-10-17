@@ -5,6 +5,7 @@ import AccountIcon from '@/icons/account.svg'
 import PontemIcon from '@/icons/pontem.svg'
 import Image from 'next/image'
 import CopyIcon from '@/icons/copy-icon'
+import { trimLeadingZero } from '@/utils/address-utils'
 
 const CopyButton = ({ value }: { value?: string }) => {
     const [copied, setCopied] = useState(false)
@@ -59,9 +60,9 @@ const DisConnectWalletModalBody = () => {
                     <div className="flex items-center grow gap-[8.69px]">
                         <div className='!grow'>
                             <p className={`text-12 text-500 leading-[1] mb-[7px] ${jost.variable} font-jost `}>Account Address</p>
-                            <div className='text-12 w-full max-w-full text-white leading-[1] truncate'>{account?.address.slice(0, 13)}...{account?.address.slice(-13)}</div>
+                            <div className='text-12 w-full max-w-full text-white leading-[1] truncate'>{trimLeadingZero(account?.address)?.slice(0, 13)}...{trimLeadingZero(account?.address)?.slice(-13)}</div>
                         </div>
-                        <CopyButton value={account?.address} />
+                        <CopyButton value={trimLeadingZero(account?.address)} />
                     </div>
                 </div>
             </div>

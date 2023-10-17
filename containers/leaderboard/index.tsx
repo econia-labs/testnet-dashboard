@@ -11,6 +11,7 @@ import LeaderboardTable from "@/components/leaderboard/leaderboard-table";
 import LeaderboardStats from "@/components/leaderboard/leaderboard-stats";
 import CountDown from "@/components/leaderboard/count-down";
 import FetchLoader from "@/components/leaderboard/fetch-loader";
+import { trimLeadingZero } from "@/utils/address-utils";
 
 const POLL_INTERVAL = process.env.NEXT_PUBLIC_POLL_INTERVAL;
 
@@ -29,7 +30,9 @@ const LeaderBoardContainer = () => {
       let loggedInUser;
       if (tableData.length > 0) {
         loggedInUser = tableData.find(
-          (user) => user.user.toLowerCase() === account?.address.toLowerCase()
+          (user) =>
+            user.user.toLowerCase() ===
+            trimLeadingZero(account?.address)?.toLowerCase()
         );
       }
       return loggedInUser;
