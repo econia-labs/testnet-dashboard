@@ -30,7 +30,11 @@ const TradeContainer = () => {
       {partnerList.map((partner: partnerType, index: number) => {
         return (
           <PartnerCard key={index} partner={partner}>
-            <Image src={partner.logo} alt={partner.name} />
+            <Image
+              src={partner.logo}
+              alt={partner.name}
+              className="max-w-[170px]"
+            />
           </PartnerCard>
         );
       })}
