@@ -170,6 +170,20 @@ const config: Config = {
             backgroundColor: '#086CD9',
             borderColor: '#086CD9'
           },
+        },
+        flash: {
+          '0%': {
+            backgroundColor: '#fff',
+            color: '#000'
+          },
+          '50%': {
+            backgroundColor: '#000',
+            color: '#fff'
+          },
+          '100%': {
+            backgroundColor: '#fff',
+            color: '#000'
+          },
         }
       },
       animation: {
@@ -178,6 +192,7 @@ const config: Config = {
         'fadeBorder': 'fadeBorder 2s linear infinite',
         'fadeBg': 'fadeBg 2s linear infinite',
         'fadeText': 'fadeText 2s linear infinite',
+        'flash': 'flash 1s linear 1',
       },
       zIndex: {
         '-1': '-1',
