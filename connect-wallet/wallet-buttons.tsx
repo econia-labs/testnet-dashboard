@@ -53,7 +53,11 @@ const WalletView = (wallet: Wallet) => {
             setConnecting(false)
         } catch (error: any) {
             setConnecting(false)
-            // setErrorAlertMessage(error);
+            if (error === 'Internal JSON-RPC error.') {
+                // show toast message
+
+                window.open(wallet.url)
+            }
         }
     };
 
