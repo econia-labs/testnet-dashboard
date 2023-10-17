@@ -11,6 +11,7 @@ import React, { ReactElement, useState } from 'react'
 import PontemICon from "@/icons/pontem-icon";
 import MartianICon from "@/icons/martian-icon";
 import RiseICon from "@/icons/rise-icon";
+import { toast } from 'react-toastify';
 
 export const WALLET_ICON: { [key: string]: ReactElement } = {
     petra: <PetraIcon />,
@@ -33,6 +34,7 @@ const WalletButtons = () => {
 }
 const WalletView = (wallet: Wallet) => {
     const { isLoading } = useWallet()
+
     const [connecting, setConnecting] = useState(false)
 
     const { connect } = useWallet();
@@ -53,11 +55,7 @@ const WalletView = (wallet: Wallet) => {
             setConnecting(false)
         } catch (error: any) {
             setConnecting(false)
-            if (error === 'Internal JSON-RPC error.') {
-                // show toast message
-
-                window.open(wallet.url)
-            }
+            toast("User reject to connect or wallet hasn't been created or imported yet!")
         }
     };
 
