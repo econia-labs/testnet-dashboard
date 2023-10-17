@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface UserRowProps {
   trClassName: string;
@@ -10,6 +10,8 @@ interface UserRowProps {
   points: number | string;
 }
 
+const POLL_INTERVAL = process.env.NEXT_PUBLIC_POLL_INTERVAL;
+
 const UserRow = ({
   trClassName,
   rank,
@@ -18,6 +20,14 @@ const UserRow = ({
   volume,
   points,
 }: UserRowProps) => {
+  const [preUserAddress, setPreUserAddress] = useState(userAddress)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setPreUserAddress(userAddress)
+    }, Number(POLL_INTERVAL) / 2) // make sure that update before next userAddress update 
+  }, [userAddress])
+
   const rankRenderer = () => {
     switch (rank) {
       case 1:
@@ -32,7 +42,7 @@ const UserRow = ({
   };
 
   return (
-    <tr className={trClassName}>
+    <tr className={`${trClassName} ${preUserAddress !== userAddress && 'animate-flash'}`}>
       <td className="py-5.64">{rankRenderer()}</td>
       <td className="uppercase">
         {userAddress.length > 3 ? (
@@ -57,9 +67,9 @@ const UserRow = ({
         {typeof volume === "string"
           ? volume
           : (volume / 10 ** 6).toLocaleString(undefined, {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 2,
-            })}
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2,
+          })}
       </td>
       <td className="hidden md:table-cell">{points.toLocaleString()}</td>
     </tr>

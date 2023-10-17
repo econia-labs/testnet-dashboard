@@ -120,7 +120,7 @@ const LeaderboardTable = ({
               return (
                 <UserRow
                   key={index}
-                  trClassName={`text-center font-normal ${index % 2 === 0 && "bg-600 bg-opacity-20"} ${highlightRow && "bg-blue bg-opacity-30"}`}
+                  trClassName={`text-center font-normal even:bg-600 even:bg-opacity-20 ${highlightRow && "bg-blue bg-opacity-30"}`}
                   rank={rank}
                   userAddress={userAddress}
                   numberOfTrades={numberOfTrades}
