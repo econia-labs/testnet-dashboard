@@ -42,8 +42,9 @@ const SlidingMenu = ({
   const { account } = useWallet();
   return (
     <div
-      className={`flex flex-col gap-40 z-10 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${isOpen ? "w-full" : "w-0"
-        }`}
+      className={`flex flex-col gap-40 z-10 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${
+        isOpen ? "w-full" : "w-0"
+      }`}
     >
       <div className="flex flex-col pt-52 justify-between items-start gap-23.68">
         {menuList.map((item: MenuItem, index: number) => {
@@ -86,8 +87,9 @@ const MenuItem = ({
           {item.name.toUpperCase()}
         </Link>
         <span
-          className={`text-600 text-24 font-light ${responsive ? "hidden" : ""
-            }`}
+          className={`text-600 text-24 font-light ${
+            responsive ? "hidden" : ""
+          }`}
         >
           /
         </span>
@@ -154,33 +156,45 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center">
-      <Link
-        href="/"
-        onClick={closeMenu}
-        className="transition duration-300 transform scale-101 hover:scale-96"
-      >
-        <Image src={logo1} alt="logo" width={117} height={19} />
-      </Link>
-      <div className="hidden lg:flex gap-24 font-medium items-baseline">
+    <div className="grid grid-cols-3">
+      {/* Logo */}
+      <div className="flex items-center">
+        <Link
+          href="/"
+          onClick={closeMenu}
+          className="transition duration-300 transform scale-101 hover:scale-96"
+        >
+          <Image src={logo1} alt="logo" width={117} height={19} />
+        </Link>
+      </div>
+      {/* Navbar links */}
+      <div className="hidden lg:flex gap-24 font-medium items-baseline justify-center">
         {menuList.map((item: MenuItem, index: number) => {
           return <MenuItem key={index} item={item} toggleMenu={closeMenu} />;
         })}
       </div>
-      {account?.address ? (
-        <DisconnectWalletButton responsive={true} />
-      ) : (
-        <ConnectWalletButton responsive={true} />
-      )}
+      {/* Connection buttons */}
+      <div className="flex justify-end">
+        {account?.address ? (
+          <DisconnectWalletButton responsive={true} />
+        ) : (
+          <ConnectWalletButton responsive={true} />
+        )}
+      </div>
 
-      <div className="flex lg:hidden flex-col gap-8 h-7" onClick={toggleMenu}>
+      <div
+        className="flex lg:hidden flex-col gap-8 h-7 items-end"
+        onClick={toggleMenu}
+      >
         <OpenMenuIcon
-          className={`transition duration-300 ease-in-out ${isOpen ? "rotate-135" : ""
-            }`}
+          className={`transition duration-300 ease-in-out ${
+            isOpen ? "rotate-135" : ""
+          }`}
         />
         <OpenMenuIcon
-          className={`transition duration-300 ease-in-out ${isOpen ? "rotate-45 -translate-y-3.25" : ""
-            }`}
+          className={`transition duration-300 ease-in-out ${
+            isOpen ? "rotate-45 -translate-y-3.25" : ""
+          }`}
         />
       </div>
       <SlidingMenu isOpen={isOpen} toggleMenu={toggleMenu} />
