@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import {
+  FETCH_STATUS,
   getEligibleUsers,
   getLeaderboard,
   getMetaData,
@@ -10,8 +11,8 @@ import { leaderboardType, metadataType } from "@/types/leaderboard";
 import LeaderboardTable from "@/components/leaderboard/leaderboard-table";
 import LeaderboardStats from "@/components/leaderboard/leaderboard-stats";
 import CountDown from "@/components/leaderboard/count-down";
-import FetchLoader from "@/components/leaderboard/fetch-loader";
 import { trimLeadingZero } from "@/utils/address-utils";
+import Maintenance from "@/components/maintenance";
 
 const POLL_INTERVAL = process.env.NEXT_PUBLIC_POLL_INTERVAL;
 // const MOCK_DATA = [
@@ -263,7 +264,7 @@ const LeaderBoardContainer = () => {
   const [totalTraders, setTotalTraders] = useState(0);
   const [metadata, setMetadata] = useState<metadataType>();
   const [totalTradingVolume, setTotalTradingVolume] = useState(0);
-  const [fetching, setFetching] = useState(true);
+  const [fetchStatus, setFetchStatus] = useState(FETCH_STATUS.LOADING);
   const { prize } = metadata || {};
   const endTime = metadata?.end;
 
@@ -283,29 +284,34 @@ const LeaderBoardContainer = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [
-        { data: metadataResponse },
-        { data: leaderboardResponse },
-        { headers: eligibleUsersHeaders },
-        { data: totalTradingVolumeResponse },
-      ] = await Promise.all([
-        getMetaData(),
-        getLeaderboard(),
-        // MOCK_DATA[turn % MOCK_DATA.length],
-        getEligibleUsers(),
-        getTotalTradingVolume(),
-      ]);
-      // turn = turn + 1
-      setFetching(false);
+      try {
 
-      if (metadataResponse.length > 0) setMetadata(metadataResponse[0]);
+        const [
+          { data: metadataResponse },
+          { data: leaderboardResponse },
+          { headers: eligibleUsersHeaders },
+          { data: totalTradingVolumeResponse },
+        ] = await Promise.all([
+          getMetaData(),
+          getLeaderboard(),
+          // MOCK_DATA[turn % MOCK_DATA.length],
+          getEligibleUsers(),
+          getTotalTradingVolume(),
+        ]);
+        // turn = turn + 1
+        setFetchStatus(FETCH_STATUS.SUCCESS);
 
-      setTableData(leaderboardResponse);
-      const eligibleUsers = eligibleUsersHeaders["content-range"].split("/")[1];
-      setTotalTraders(eligibleUsers);
+        if (metadataResponse.length > 0) setMetadata(metadataResponse[0]);
 
-      const totalVolume = totalTradingVolumeResponse[0].volume / 10 ** 6;
-      setTotalTradingVolume(totalVolume);
+        setTableData(leaderboardResponse);
+        const eligibleUsers = eligibleUsersHeaders["content-range"].split("/")[1];
+        setTotalTraders(eligibleUsers);
+
+        const totalVolume = totalTradingVolumeResponse[0].volume / 10 ** 6;
+        setTotalTradingVolume(totalVolume);
+      } catch (error) {
+        setFetchStatus(FETCH_STATUS.ERROR);
+      }
     };
 
     fetchData();
@@ -315,6 +321,14 @@ const LeaderBoardContainer = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  if (fetchStatus === FETCH_STATUS.ERROR) {
+    return (
+      <div className="h-[calc(100vh-86.65px)] h-[calc(100vh-107.89px)]">
+        <Maintenance />
+      </div>
+    )
+  }
+
   return (
     <div className="leaderboard-page-container flex flex-col items-center w-317 sm:w-437 md:w-605 lg:w-757 m-auto max-h-[calc(100vh-86.65px)] lg:max-h-[calc(100vh-107.89px)] ">
       <div className="mt-58">
@@ -322,7 +336,7 @@ const LeaderBoardContainer = () => {
       </div>
       <div className="mt-44 hidden md:flex">
         <LeaderboardStats
-          fetching={fetching}
+          fetching={fetchStatus === FETCH_STATUS.LOADING}
           totalVolume={totalTradingVolume}
           traders={totalTraders}
           prize={prize}
@@ -330,7 +344,7 @@ const LeaderBoardContainer = () => {
       </div>
       <div className="mt-42 md:mt-52 lg:mt-36 grow overflow-y-scroll no-scrollbar">
         <LeaderboardTable
-          fetching={fetching}
+          fetching={fetchStatus === FETCH_STATUS.LOADING}
           tableData={tableData}
           loggedInUser={loggedInUserData}
         />

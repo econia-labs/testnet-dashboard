@@ -59,22 +59,27 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 }
                 
               `}</style>
-            <div className={`${mono.variable} font-mono text-white pt-35 pl-46 pr-31.79 sm:pr-33.71 md:pr-42 lg:px-105`}>
-                {loaderShow && <Loader animationFinished={animationFinished} />}
-                {
-                    status === Status.ONLINE && (
-                        <>
-                            <Navbar />
-                            {children}
-                        </>
-                    )
-                }
-                {
-                    status === Status.MAINTAINED && (
+            {
+                status === Status.MAINTAINED ? (
+                    <div className="min-h-[100vh] flex items-center text-white">
                         <Maintenance />
-                    )
-                }
-            </div>
+                    </div>
+                ) : (
+                    <div className={`${mono.variable} font-mono text-white pt-35 pl-46 pr-31.79 sm:pr-33.71 md:pr-42 lg:px-105`}>
+                        {loaderShow && <Loader animationFinished={animationFinished} />}
+                        {
+                            status === Status.ONLINE && (
+                                <>
+                                    <Navbar />
+                                    {children}
+                                </>
+                            )
+                        }
+
+                    </div>
+                )
+            }
+
         </div>
 
     )
