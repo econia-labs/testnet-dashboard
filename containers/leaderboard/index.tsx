@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import {
   getEligibleUsers,
@@ -264,8 +264,11 @@ const LeaderBoardContainer = () => {
   const [metadata, setMetadata] = useState<metadataType>();
   const [totalTradingVolume, setTotalTradingVolume] = useState(0);
   const [fetching, setFetching] = useState(true);
+  const [leaderboardHeight, setLeaderboardHeight] = useState(0);
   const { prize } = metadata || {};
   const endTime = metadata?.end;
+
+  const leaderboardRef = useRef<HTMLDivElement>(null);
 
   const loggedInUserData: leaderboardType | undefined = useMemo(() => {
     if (account?.address) {
@@ -315,6 +318,11 @@ const LeaderBoardContainer = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    const leaderboardHeight = leaderboardRef.current?.clientHeight;
+    setLeaderboardHeight(leaderboardHeight || 0);
+  }, []);
+
   return (
     <div className="leaderboard-page-container flex flex-col items-center w-317 sm:w-437 md:w-605 lg:w-757 m-auto max-h-[calc(100vh-86.65px)] lg:max-h-[calc(100vh-107.89px)] ">
       <div className="mt-58">
@@ -328,11 +336,15 @@ const LeaderBoardContainer = () => {
           prize={prize}
         />
       </div>
-      <div className="mt-42 md:mt-52 lg:mt-36 grow overflow-y-scroll no-scrollbar">
+      <div
+        ref={leaderboardRef}
+        className="mt-42 md:mt-52 lg:mt-36 grow overflow-y-scroll no-scrollbar"
+      >
         <LeaderboardTable
           fetching={fetching}
           tableData={tableData}
           loggedInUser={loggedInUserData}
+          leaderboardHeight={leaderboardHeight}
         />
       </div>
       <div className="fixed bottom-0 w-full h-290 bg-gradient-to-b from-transparent to-black pointer-events-none"></div>

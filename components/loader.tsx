@@ -12,7 +12,7 @@ const Loader = ({ animationFinished }: { animationFinished: boolean }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-full bg-800 bg-noise grid place-items-center z-[2] transition-opacity duration-2000 ${
+      className={`fixed top-0 left-0 w-full h-full bg-800 bg-noise grid place-items-center z-[3] transition-opacity duration-2000 ${
         animationFinished ? "opacity-0" : ""
       }`}
     >
