@@ -120,9 +120,7 @@ const LeaderboardTable = ({
                 points,
                 n_trades: numberOfTrades,
               } = user;
-              const highlightRow =
-                userAddress === trimLeadingZero(account?.address) &&
-                loggedInUserInTop5;
+              const highlightRow = userAddress === trimLeadingZero(account?.address);
               return (
                 <UserRow
                   key={index}
