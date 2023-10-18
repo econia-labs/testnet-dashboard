@@ -39,6 +39,7 @@ const SlidingMenu = ({
   toggleMenu: () => void;
 }) => {
   const { account } = useWallet();
+
   return (
     <div
       className={`flex flex-col gap-40 z-10 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${
@@ -144,7 +145,16 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("resize", updateIsOpen);
     };
-  }, [setIsOpen]);
+  }, []);
+
+  useEffect(() => {
+    // If isOpen is true, no scrolling is allowed on the body
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isOpen]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
