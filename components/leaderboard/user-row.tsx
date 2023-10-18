@@ -1,3 +1,4 @@
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -21,6 +22,7 @@ const UserRow = ({
   points,
 }: UserRowProps) => {
   const [preUserAddress, setPreUserAddress] = useState(userAddress)
+  const { account } = useWallet()
 
   useEffect(() => {
     setTimeout(() => {
@@ -51,12 +53,21 @@ const UserRow = ({
             href={`https://explorer.aptoslabs.com/account/${userAddress}?network=testnet`}
             target="_blank"
           >
-            <span className="hidden xsm:block">
-              {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
-            </span>
-            <span className="block xsm:hidden">
-              {userAddress.slice(0, 3)}..
-            </span>
+            {
+              account?.address && account.address.toLowerCase() === userAddress.toLowerCase() ? (
+                <span>YOU</span>
+              ) : (
+                <>
+                  <span className="hidden xsm:block">
+                    {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
+                  </span>
+                  <span className="block xsm:hidden">
+                    {userAddress.slice(0, 3)}..
+                  </span>
+                </>
+              )
+            }
+
           </Link>
         ) : (
           userAddress
