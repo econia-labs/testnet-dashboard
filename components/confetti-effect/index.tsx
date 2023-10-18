@@ -3,7 +3,7 @@ type ConfettiEffectProps = {
     onClose?: () => void
     duration?: number
 }
-const mp = 1500; // max particles
+const mp = 1400; // max particles
 const settleMp = mp / 2; // max particles
 
 let reactivationTimerHandler: NodeJS.Timeout | null;
@@ -125,7 +125,7 @@ const ConfettiEffect = ({ onClose, duration }: ConfettiEffectProps) => {
                     randomParticle = particles[randomFromTo(0, mp - 1)];
                     if (randomParticle.y > H - 80 && randomParticle.y < H - 40) {
                         randomParticle.x = Math.random() * W; // x-coordinate
-                        randomParticle.y = -10; // y-coordinate
+                        randomParticle.y = -8; // y-coordinate
                         randomParticle.r = randomFromTo(10, 30); // radius
                         randomParticle.d = Math.random() * mp + 10; // density
                         randomParticle.tiltAngleIncremental =
