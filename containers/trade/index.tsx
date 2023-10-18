@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import Partner_1 from "../../partner-logos/partner-1.svg";
 import Partner_2 from "../../partner-logos/partner-2.svg";
-import Partner_3 from "../../partner-logos/partner-3.png";
+import Partner_3 from "../../partner-logos/partner-3.svg";
 import { partnerType } from "@/types/partner";
 
 const partnerList: partnerType[] = [
@@ -30,11 +30,7 @@ const TradeContainer = () => {
       {partnerList.map((partner: partnerType, index: number) => {
         return (
           <PartnerCard key={index} partner={partner}>
-            <Image
-              src={partner.logo}
-              alt={partner.name}
-              className="max-w-[170px]"
-            />
+            <Image src={partner.logo} alt={partner.name} />
           </PartnerCard>
         );
       })}
