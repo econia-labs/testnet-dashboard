@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import logo1 from "../public/logo1.svg";
 import Link from "next/link";
 import { Fragment, useEffect, useState } from "react";
-import { ArrowExternalRightIcon } from "@/icons/arrow-external-right-icon";
 import ConnectWalletButton from "../connect-wallet/connect-wallet-button";
 import { OpenMenuIcon } from "@/icons/open-menu-icon";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
@@ -104,7 +103,7 @@ const MenuItem = ({
         className="text-500 flex gap-8 transition-color duration-300 ease-in-out hover:text-blue"
         onClick={toggleMenu}
       >
-        {item.name.toUpperCase()} <ArrowExternalRightIcon />
+        {item.name.toUpperCase()}
       </a>
     );
   }
