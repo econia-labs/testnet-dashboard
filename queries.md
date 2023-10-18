@@ -18,11 +18,11 @@ The response is in a header named `Content-Range`.
 ## User information
 
 ```http
-GET /competition_leaderboard_users?user=eq.ADDR
+GET /competition_leaderboard_users?competition_id=eq.COMP_ID&user=eq.ADDR
 ```
 
 ## Top 100
 
 ```http
-GET /competition_leaderboard_users?limit=100
+GET /competition_leaderboard_users?competition_id=eq.COMP_ID&limit=100
 ```
