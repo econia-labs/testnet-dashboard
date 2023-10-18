@@ -21,10 +21,12 @@ const LeaderboardTable = ({
   fetching,
   tableData,
   loggedInUser,
+  leaderboardHeight,
 }: {
   fetching: boolean;
   tableData: leaderboardType[];
   loggedInUser: leaderboardType | undefined;
+  leaderboardHeight: number;
 }) => {
   const { account } = useWallet();
 
@@ -73,9 +75,11 @@ const LeaderboardTable = ({
   const loggedInUserInTop5 = Number(loggedInUserRank) <= 5;
 
   return (
-    <div className="flex items-center justify-center overflow-hidden w-317 sm:w-437 md:w-605 lg:w-757">
+    <div
+      className={`w-317 sm:w-437 md:w-605 lg:w-757 no-scrollbar max-h-[${leaderboardHeight}px]`}
+    >
       <table className="w-full table-auto sm:table-fixed">
-        <thead>
+        <thead className="bg-800 bg-noise sticky top-0 z-[2]">
           <tr className="uppercase h-52">
             <th className="text-12 text-500 uppercase text-center font-normal">
               Rank
@@ -116,11 +120,15 @@ const LeaderboardTable = ({
                 points,
                 n_trades: numberOfTrades,
               } = user;
-              const highlightRow = userAddress === trimLeadingZero(account?.address) && loggedInUserInTop5;
+              const highlightRow =
+                userAddress === trimLeadingZero(account?.address) &&
+                loggedInUserInTop5;
               return (
                 <UserRow
                   key={index}
-                  trClassName={`text-center font-normal even:bg-600 even:bg-opacity-20 ${highlightRow && "bg-blue bg-opacity-30"}`}
+                  trClassName={`text-center font-normal even:bg-600 even:bg-opacity-20 ${
+                    highlightRow && "bg-blue bg-opacity-30"
+                  }`}
                   rank={rank}
                   userAddress={userAddress}
                   numberOfTrades={numberOfTrades}

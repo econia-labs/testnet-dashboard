@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import {
   FETCH_STATUS,
@@ -264,9 +264,12 @@ const LeaderBoardContainer = () => {
   const [totalTraders, setTotalTraders] = useState(0);
   const [metadata, setMetadata] = useState<metadataType>();
   const [totalTradingVolume, setTotalTradingVolume] = useState(0);
+  const [leaderboardHeight, setLeaderboardHeight] = useState(0);
   const [fetchStatus, setFetchStatus] = useState(FETCH_STATUS.LOADING);
   const { prize } = metadata || {};
   const endTime = metadata?.end;
+
+  const leaderboardRef = useRef<HTMLDivElement>(null);
 
   const loggedInUserData: leaderboardType | undefined = useMemo(() => {
     if (account?.address) {
@@ -285,7 +288,6 @@ const LeaderBoardContainer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         const [
           { data: metadataResponse },
           { data: leaderboardResponse },
@@ -304,7 +306,8 @@ const LeaderBoardContainer = () => {
         if (metadataResponse.length > 0) setMetadata(metadataResponse[0]);
 
         setTableData(leaderboardResponse);
-        const eligibleUsers = eligibleUsersHeaders["content-range"].split("/")[1];
+        const eligibleUsers =
+          eligibleUsersHeaders["content-range"].split("/")[1];
         setTotalTraders(eligibleUsers);
 
         const totalVolume = totalTradingVolumeResponse[0].volume / 10 ** 6;
@@ -321,12 +324,17 @@ const LeaderBoardContainer = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    const leaderboardHeight = leaderboardRef.current?.clientHeight;
+    setLeaderboardHeight(leaderboardHeight || 0);
+  }, []);
+
   if (fetchStatus === FETCH_STATUS.ERROR) {
     return (
       <div className="h-[calc(100vh-86.65px)] h-[calc(100vh-107.89px)]">
         <Maintenance />
       </div>
-    )
+    );
   }
 
   return (
@@ -342,11 +350,15 @@ const LeaderBoardContainer = () => {
           prize={prize}
         />
       </div>
-      <div className="mt-42 md:mt-52 lg:mt-36 grow overflow-y-scroll no-scrollbar">
+      <div
+        ref={leaderboardRef}
+        className="mt-42 md:mt-52 lg:mt-36 grow overflow-y-scroll no-scrollbar"
+      >
         <LeaderboardTable
           fetching={fetchStatus === FETCH_STATUS.LOADING}
           tableData={tableData}
           loggedInUser={loggedInUserData}
+          leaderboardHeight={leaderboardHeight}
         />
       </div>
       <div className="fixed bottom-0 w-full h-290 bg-gradient-to-b from-transparent to-black pointer-events-none"></div>
