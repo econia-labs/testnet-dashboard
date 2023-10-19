@@ -173,7 +173,7 @@ const config: Config = {
         },
         flash: {
           '0%': {
-            backgroundColor: '#fff',
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
             color: '#000'
           },
           '50%': {
@@ -181,7 +181,7 @@ const config: Config = {
             color: '#fff'
           },
           '100%': {
-            backgroundColor: '#fff',
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
             color: '#000'
           },
         }
