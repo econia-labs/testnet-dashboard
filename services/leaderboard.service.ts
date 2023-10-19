@@ -6,7 +6,7 @@ const COMP_ID = process.env.NEXT_PUBLIC_COMPETITION_ID;
 const LEADERBOARD_MAX_ROWS = process.env.NEXT_PUBLIC_LEADERBOARD_MAX_ROWS;
 
 export const getLeaderboard = async (): Promise<AxiosResponse<leaderboardType[]>> => {
-  const rs = await getRequest(`competition_leaderboard_users?limit=${LEADERBOARD_MAX_ROWS}`);
+  const rs = await getRequest(`competition_leaderboard_users?competition_id=eq.${COMP_ID}&limit=${LEADERBOARD_MAX_ROWS}`);
   return rs;
 };
 
@@ -22,7 +22,7 @@ export const getTotalTradingVolume = async (): Promise<AxiosResponse<leaderboard
 };
 
 export const getUserData = async (userAddress: string): Promise<AxiosResponse<leaderboardType[]>> => {
-  const rs = await getRequest(`competition_leaderboard_users?user=eq.${userAddress}&select=*,is_eligible`);
+  const rs = await getRequest(`competition_leaderboard_users?competition_id=eq.${COMP_ID}&user=eq.${userAddress}&select=*,is_eligible`);
   return rs;
 };
 
