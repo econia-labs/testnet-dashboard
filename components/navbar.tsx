@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-import logo1 from "../public/logo1.svg";
+import econiaLogo from "../public/econia-logo.svg";
 import Link from "next/link";
 import { Fragment, useEffect, useState } from "react";
 import ConnectWalletButton from "../connect-wallet/connect-wallet-button";
@@ -173,7 +173,7 @@ const Navbar = () => {
           onClick={closeMenu}
           className="transition duration-300 transform scale-101 hover:scale-96"
         >
-          <Image src={logo1} alt="logo" width={117} height={19} />
+          <Image src={econiaLogo} alt="logo" width={117} height={19} />
         </Link>
       </div>
       {/* Navbar links */}
