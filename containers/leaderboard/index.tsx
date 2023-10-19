@@ -5,7 +5,6 @@ import {
   getEligibleUsers,
   getLeaderboard,
   getMetaData,
-  getTotalTradingVolume,
 } from "@/services";
 import { leaderboardType, metadataType } from "@/types/leaderboard";
 import LeaderboardTable from "@/components/leaderboard/leaderboard-table";
@@ -292,26 +291,26 @@ const LeaderBoardContainer = () => {
           { data: metadataResponse },
           { data: leaderboardResponse },
           { headers: eligibleUsersHeaders },
-          { data: totalTradingVolumeResponse },
         ] = await Promise.all([
           getMetaData(),
           getLeaderboard(),
           // MOCK_DATA[turn % MOCK_DATA.length],
           getEligibleUsers(),
-          getTotalTradingVolume(),
         ]);
         // turn = turn + 1
         setFetchStatus(FETCH_STATUS.SUCCESS);
 
-        if (metadataResponse.length > 0) setMetadata(metadataResponse[0]);
+        if (metadataResponse.length > 0) {
+          const metadata = metadataResponse[0];
+          setMetadata(metadata);
+          const totalVolume = metadata.volume / 10 ** 6;
+          setTotalTradingVolume(totalVolume);
+        }
 
         setTableData(leaderboardResponse);
         const eligibleUsers =
           eligibleUsersHeaders["content-range"].split("/")[1];
         setTotalTraders(eligibleUsers);
-
-        const totalVolume = totalTradingVolumeResponse[0].volume / 10 ** 6;
-        setTotalTradingVolume(totalVolume);
       } catch (error) {
         setFetchStatus(FETCH_STATUS.ERROR);
       }
