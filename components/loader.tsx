@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import logo1 from "../public/logo1.svg";
+import econiaLogo from "../public/econia-logo.svg";
 import { mono } from "@/fonts/fonts";
 
 const Loader = ({ animationFinished }: { animationFinished: boolean }) => {
@@ -19,7 +19,7 @@ const Loader = ({ animationFinished }: { animationFinished: boolean }) => {
       <div className="flex flex-col items-center gap-30">
         <Image
           className={`w-[150px] h-auto transition-opacity duration-1000 ease-in-out opacity-${imageOpacity}`}
-          src={logo1}
+          src={econiaLogo}
           alt="logo"
         />
         <div
