@@ -16,18 +16,13 @@ export const getEligibleUsers = async (): Promise<AxiosResponse<leaderboardType[
   return rs;
 };
 
-export const getTotalTradingVolume = async (): Promise<AxiosResponse<leaderboardType[]>> => {
+export const getMetaData = async (): Promise<AxiosResponse<metadataType[]>> => {
   const rs = await getRequest(`competition_metadata?select=*,volume&id=eq.${COMP_ID}`);
   return rs;
 };
 
 export const getUserData = async (userAddress: string): Promise<AxiosResponse<leaderboardType[]>> => {
   const rs = await getRequest(`competition_leaderboard_users?competition_id=eq.${COMP_ID}&user=eq.${userAddress}&select=*,is_eligible`);
-  return rs;
-};
-
-export const getMetaData = async (): Promise<AxiosResponse<metadataType[]>> => {
-  const rs = await getRequest(`competition_metadata?id=eq.${COMP_ID}`);
   return rs;
 };
 

@@ -15,4 +15,5 @@ export interface metadataType {
     prize: number;
     market_id: number;
     integrators_required: string[];
+    volume: number;
 }
