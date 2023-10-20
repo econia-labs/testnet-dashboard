@@ -44,11 +44,7 @@ const UserRow = ({
   };
 
   return (
-    <tr
-      className={`${trClassName} ${
-        preUserAddress !== userAddress && "animate-flash"
-      }`}
-    >
+    <tr className={`${trClassName} ${preUserAddress !== userAddress && "animate-flash"}`}>
       <td className="py-5.64">{rankRenderer()}</td>
       <td className="uppercase">
         {userAddress.length > 3 ? (
@@ -79,14 +75,9 @@ const UserRow = ({
         {numberOfTrades.toLocaleString()}
       </td>
       <td className="hidden md:table-cell">
-        {typeof volume === "string"
-          ? volume
-          : (volume / 10 ** 6).toLocaleString(undefined, {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 2,
-            })}
+        {typeof volume === "string" ? volume : (volume / 10 ** 6).toLocaleString(undefined, {maximumFractionDigits: 0})}
       </td>
-      <td>{points.toLocaleString()}</td>
+      <td>{points.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
     </tr>
   );
 };
