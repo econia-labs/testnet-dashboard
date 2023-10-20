@@ -71,13 +71,13 @@ const UserRow = ({
           userAddress
         )}
       </td>
-      <td>{numberOfTrades.toLocaleString()}</td>
       <td className="hidden lg:table-cell">
-        {typeof volume === "string"
-          ? volume
-          : (volume / 10 ** 6).toLocaleString(undefined, {maximumFractionDigits: 0})}
+        {numberOfTrades.toLocaleString()}
       </td>
-      <td className="hidden md:table-cell">{points.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
+      <td className="hidden md:table-cell">
+        {typeof volume === "string" ? volume : (volume / 10 ** 6).toLocaleString(undefined, {maximumFractionDigits: 0})}
+      </td>
+      <td>{points.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
     </tr>
   );
 };
