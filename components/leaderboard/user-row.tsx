@@ -21,14 +21,14 @@ const UserRow = ({
   volume,
   points,
 }: UserRowProps) => {
-  const [preUserAddress, setPreUserAddress] = useState(userAddress)
-  const { account } = useWallet()
+  const [preUserAddress, setPreUserAddress] = useState(userAddress);
+  const { account } = useWallet();
 
   useEffect(() => {
     setTimeout(() => {
-      setPreUserAddress(userAddress)
-    }, Number(POLL_INTERVAL) / 2) // make sure that update before next userAddress update 
-  }, [userAddress])
+      setPreUserAddress(userAddress);
+    }, Number(POLL_INTERVAL) / 2); // make sure that update before next userAddress update
+  }, [userAddress]);
 
   const rankRenderer = () => {
     switch (rank) {
@@ -44,7 +44,11 @@ const UserRow = ({
   };
 
   return (
-    <tr className={`${trClassName} ${preUserAddress !== userAddress && 'animate-flash'}`}>
+    <tr
+      className={`${trClassName} ${
+        preUserAddress !== userAddress && "animate-flash"
+      }`}
+    >
       <td className="py-5.64">{rankRenderer()}</td>
       <td className="uppercase">
         {userAddress.length > 3 ? (
@@ -53,36 +57,36 @@ const UserRow = ({
             href={`https://explorer.aptoslabs.com/account/${userAddress}?network=testnet`}
             target="_blank"
           >
-            {
-              account?.address && account.address.toLowerCase() === userAddress.toLowerCase() ? (
-                <span>YOU</span>
-              ) : (
-                <>
-                  <span className="hidden xsm:block">
-                    {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
-                  </span>
-                  <span className="block xsm:hidden">
-                    {userAddress.slice(0, 3)}..
-                  </span>
-                </>
-              )
-            }
-
+            {account?.address &&
+            account.address.toLowerCase() === userAddress.toLowerCase() ? (
+              <span>YOU</span>
+            ) : (
+              <>
+                <span className="hidden xsm:block">
+                  {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
+                </span>
+                <span className="block xsm:hidden">
+                  {userAddress.slice(0, 3)}..
+                </span>
+              </>
+            )}
           </Link>
         ) : (
           userAddress
         )}
       </td>
-      <td>{numberOfTrades.toLocaleString()}</td>
       <td className="hidden lg:table-cell">
+        {numberOfTrades.toLocaleString()}
+      </td>
+      <td className="hidden md:table-cell">
         {typeof volume === "string"
           ? volume
           : (volume / 10 ** 6).toLocaleString(undefined, {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2,
-          })}
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 2,
+            })}
       </td>
-      <td className="hidden md:table-cell">{points.toLocaleString()}</td>
+      <td>{points.toLocaleString()}</td>
     </tr>
   );
 };
