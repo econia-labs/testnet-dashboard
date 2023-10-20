@@ -14,6 +14,7 @@ import { trimLeadingZero } from "@/utils/address-utils";
 import Maintenance from "@/components/maintenance";
 
 const POLL_INTERVAL = process.env.NEXT_PUBLIC_POLL_INTERVAL;
+const MAX_RETRY = 1
 // const MOCK_DATA = [
 //   {
 //     data: [
@@ -285,7 +286,11 @@ const LeaderBoardContainer = () => {
   }, [tableData, account]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (retry: number) => {
+      if (process.env.NEXT_PUBLIC_BACKEND_EXPECTED_ONLINE === 'false') {
+        setFetchStatus(FETCH_STATUS.ERROR);
+        return
+      }
 
       try {
         const [
@@ -312,12 +317,25 @@ const LeaderBoardContainer = () => {
         const eligibleUsers =
           eligibleUsersHeaders["content-range"].split("/")[1];
         setTotalTraders(eligibleUsers);
-      } catch (error) {
-        setFetchStatus(FETCH_STATUS.ERROR);
+
+      } catch (error: any) {
+        console.log("🚀 ~ file: index.tsx:323 ~ fetchData ~ error:", error)
+        if (retry >= MAX_RETRY) {
+          setFetchStatus(FETCH_STATUS.ERROR)
+        } else {
+          // setTimeout(() => {
+          //   fetchData(retry + 1)
+          // }, 2000)
+          await new Promise((resolve) => {
+            setTimeout(() => resolve(1), 2000)
+          })
+          fetchData(retry + 1)
+        }
+
       }
     };
 
-    fetchData();
+    fetchData(0);
 
     const intervalId = setInterval(fetchData, Number(POLL_INTERVAL));
 
