@@ -286,6 +286,7 @@ const LeaderBoardContainer = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+
       try {
         const [
           { data: metadataResponse },
