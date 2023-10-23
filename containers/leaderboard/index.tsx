@@ -15,6 +15,10 @@ import Maintenance from "@/components/maintenance";
 
 const POLL_INTERVAL = process.env.NEXT_PUBLIC_POLL_INTERVAL;
 const MAX_RETRY = 1
+let hitLimit = {
+  isHitLimit: false,
+  hitLimitTime: 0
+}
 // const MOCK_DATA = [
 //   {
 //     data: [
@@ -290,8 +294,9 @@ const LeaderBoardContainer = () => {
   }, [tableData, account]);
 
   useEffect(() => {
-    const fetchData = async (retry: number) => {
-      if (hitLimit.isHitLimit && Date.now() < hitLimit.hitLimitTime + 1 * 60 * 1000) {
+    const fetchData = async (retry: number, hitLimit: { isHitLimit: boolean, hitLimitTime: number }) => {
+      if (Date.now() < hitLimit.hitLimitTime || (hitLimit.isHitLimit && Date.now() < hitLimit.hitLimitTime + 1 * 60 * 1000)) {
+        console.log("return");
         return
       }
       if (process.env.NEXT_PUBLIC_BACKEND_EXPECTED_ONLINE === 'false') {
@@ -327,7 +332,7 @@ const LeaderBoardContainer = () => {
         if (hitLimit.isHitLimit) {
           setHitLimit({
             isHitLimit: false,
-            hitLimitTime: 0
+            hitLimitTime: Date.now() + Number(POLL_INTERVAL) / 2 // made sure that it not call api immediately after hitLimit State change
           })
         }
       } catch (error: any) {
@@ -347,15 +352,15 @@ const LeaderBoardContainer = () => {
           await new Promise((resolve) => {
             setTimeout(() => resolve(1), 2000)
           })
-          fetchData(retry + 1)
+          fetchData(retry + 1, hitLimit)
         }
 
       }
     };
 
-    fetchData(0);
-
-    const intervalId = setInterval(fetchData, Number(POLL_INTERVAL));
+    fetchData(0, hitLimit);
+    console.log("🚀 ~ file: index.tsx:363 ~ useEffect ~ hitLimit:", hitLimit)
+    const intervalId = setInterval(() => fetchData(0, hitLimit), Number(POLL_INTERVAL));
 
     return () => clearInterval(intervalId);
   }, [hitLimit.isHitLimit]);
