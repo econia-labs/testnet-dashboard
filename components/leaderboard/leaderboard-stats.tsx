@@ -34,7 +34,7 @@ const LeaderboardStats = ({
         <Skeleton width={100} />
       ) : (
         `$${totalVolume.toLocaleString(undefined, {
-          minimumFractionDigits: 0,
+          minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}`
       ),
