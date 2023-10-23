@@ -10,7 +10,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [loaderShow, setLoaderShow] = useState(true);
 
   useEffect(() => {
-    if (!isLoading && !account) {
       const animationTimer = setTimeout(() => {
         setAnimationFinished(true);
       }, 3000);
@@ -21,8 +20,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         clearTimeout(animationTimer);
         clearTimeout(loaderTimer);
       };
-    }
-  }, [isLoading]);
+  }, []);
 
   return (
     <div>
