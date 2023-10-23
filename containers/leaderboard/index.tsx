@@ -266,6 +266,10 @@ const LeaderBoardContainer = () => {
   const [totalTradingVolume, setTotalTradingVolume] = useState(0);
   const [leaderboardHeight, setLeaderboardHeight] = useState(0);
   const [fetchStatus, setFetchStatus] = useState(FETCH_STATUS.LOADING);
+  const [hitLimit, setHitLimit] = useState({
+    isHitLimit: false,
+    hitLimitTime: 0
+  });
   const { prize } = metadata || {};
   const endTime = metadata?.end;
 
@@ -287,6 +291,9 @@ const LeaderBoardContainer = () => {
 
   useEffect(() => {
     const fetchData = async (retry: number) => {
+      if (hitLimit.isHitLimit && Date.now() < hitLimit.hitLimitTime + 1 * 60 * 1000) {
+        return
+      }
       if (process.env.NEXT_PUBLIC_BACKEND_EXPECTED_ONLINE === 'false') {
         setFetchStatus(FETCH_STATUS.ERROR);
         return
@@ -317,9 +324,20 @@ const LeaderBoardContainer = () => {
         const eligibleUsers =
           eligibleUsersHeaders["content-range"].split("/")[1];
         setTotalTraders(eligibleUsers);
-
+        if (hitLimit.isHitLimit) {
+          setHitLimit({
+            isHitLimit: false,
+            hitLimitTime: 0
+          })
+        }
       } catch (error: any) {
-        console.log("🚀 ~ file: index.tsx:323 ~ fetchData ~ error:", error)
+        if (error?.response?.status === 429) {
+          setHitLimit({
+            isHitLimit: true,
+            hitLimitTime: Date.now()
+          })
+          return
+        }
         if (retry >= MAX_RETRY) {
           setFetchStatus(FETCH_STATUS.ERROR)
         } else {
@@ -340,12 +358,23 @@ const LeaderBoardContainer = () => {
     const intervalId = setInterval(fetchData, Number(POLL_INTERVAL));
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [hitLimit.isHitLimit]);
 
   useEffect(() => {
     const leaderboardHeight = leaderboardRef.current?.clientHeight;
     setLeaderboardHeight(leaderboardHeight || 0);
   }, []);
+
+  if (hitLimit.isHitLimit) {
+    return (
+      <div className="h-[calc(100vh-86.65px)] h-[calc(100vh-107.89px)]">
+        <Maintenance
+          title="You've Been Rate-Limited"
+          desc={`You've been rate-limited by the leaderboard due to frequent requests or high local WiFi traffic. Try a mobile hotspot or sharing a screen in high-traffic areas. 💙`}
+        />
+      </div>
+    )
+  }
 
   if (fetchStatus === FETCH_STATUS.ERROR) {
     return (

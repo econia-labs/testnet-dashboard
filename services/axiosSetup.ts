@@ -1,20 +1,21 @@
 import axios from "axios";
+import { error } from "console";
 
 const API_ENDPOINT = process.env.NEXT_PUBLIC_REST_API_URL;
 
 const axiosClient = axios.create({
   baseURL: API_ENDPOINT,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
+  // headers: {
+  //   // "Content-Type": "application/json",
+  //   // Accept: "application/json",
+  // },
   timeout: 7000,
   withCredentials: true,
 });
 
 export const getRequest = async (url: string, headers?: Record<string, string>) => {
   return axiosClient
-    .get(`/${url}`, { headers })
+    .get(`/${url}`)
     .then((response) => response);
 };
 
