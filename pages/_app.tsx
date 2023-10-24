@@ -10,12 +10,16 @@ import Web3Provider from "@/connect-wallet/provider";
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toast.css';
 import ToastContainer from "@/containers/toast";
+import Script from "next/script";
+import Head from "next/head";
+import GoogleAnalystScript from "@/components/google-analyst-script";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SkeletonTheme baseColor="#202020" highlightColor="#444">
       <Web3Provider>
         <Layout>
+          <GoogleAnalystScript />
           <Component {...pageProps} />
           <ToastContainer />
         </Layout>
