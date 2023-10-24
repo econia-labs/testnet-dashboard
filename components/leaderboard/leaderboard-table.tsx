@@ -42,6 +42,7 @@ const LeaderboardTable = ({
   const [userData, setUserData] = useState<UserDataType>(defaultUserData);
 
   useEffect(() => {
+    if (fetching) return;
     if (loggedInUser) {
       setUserData(loggedInUser);
     } else if (!loggedInUser && account?.address) {
@@ -61,7 +62,7 @@ const LeaderboardTable = ({
     } else {
       setUserData(defaultUserData);
     }
-  }, [loggedInUser, account?.address]);
+  }, [loggedInUser, account?.address, fetching]);
 
   const {
     rank: loggedInUserRank,
