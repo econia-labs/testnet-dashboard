@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import {
   FETCH_STATUS,
-  getEligibleUsers,
   getLeaderboard,
   getMetaData,
 } from "@/services";
@@ -295,13 +294,11 @@ const LeaderBoardContainer = () => {
       try {
         const [
           { data: metadataResponse },
-          { data: leaderboardResponse },
-          { headers: eligibleUsersHeaders },
+          { data: leaderboardResponse, headers: eligibleUsersHeaders },
         ] = await Promise.all([
           getMetaData(),
           getLeaderboard(),
           // MOCK_DATA[turn % MOCK_DATA.length],
-          getEligibleUsers(),
         ]);
         // turn = turn + 1
         setFetchStatus(FETCH_STATUS.SUCCESS);

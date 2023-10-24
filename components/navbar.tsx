@@ -27,7 +27,7 @@ const menuList = [
   },
   {
     name: "Rules",
-    link: "https://econia-labs.notion.site/Trading-Competition-Rules-b8427e2843a648319bdcbcd2aae6d296?pvs=4",
+    link: String(process.env.NEXT_PUBLIC_RULES_HREF),
   },
 ];
 
@@ -42,9 +42,8 @@ const SlidingMenu = ({
 
   return (
     <div
-      className={`flex flex-col gap-40 z-10 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${
-        isOpen ? "w-full" : "w-0"
-      }`}
+      className={`flex flex-col gap-40 z-10 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${isOpen ? "w-full" : "w-0"
+        }`}
     >
       <div className="flex flex-col pt-52 justify-between items-start gap-23.68">
         {menuList.map((item: MenuItem, index: number) => {
@@ -87,9 +86,8 @@ const MenuItem = ({
           {item.name.toUpperCase()}
         </Link>
         <span
-          className={`text-600 text-24 font-light ${
-            responsive ? "hidden" : ""
-          }`}
+          className={`text-600 text-24 font-light ${responsive ? "hidden" : ""
+            }`}
         >
           /
         </span>
@@ -196,14 +194,12 @@ const Navbar = () => {
         onClick={toggleMenu}
       >
         <OpenMenuIcon
-          className={`transition duration-300 ease-in-out ${
-            isOpen ? "rotate-135" : ""
-          }`}
+          className={`transition duration-300 ease-in-out ${isOpen ? "rotate-135" : ""
+            }`}
         />
         <OpenMenuIcon
-          className={`transition duration-300 ease-in-out ${
-            isOpen ? "rotate-45 -translate-y-3.25" : ""
-          }`}
+          className={`transition duration-300 ease-in-out ${isOpen ? "rotate-45 -translate-y-3.25" : ""
+            }`}
         />
       </div>
       <SlidingMenu isOpen={isOpen} toggleMenu={toggleMenu} />
