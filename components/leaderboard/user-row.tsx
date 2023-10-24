@@ -21,14 +21,14 @@ const UserRow = ({
   volume,
   points,
 }: UserRowProps) => {
-  const [preUserAddress, setPreUserAddress] = useState(userAddress);
+  // const [preUserAddress, setPreUserAddress] = useState(userAddress);
   const { account } = useWallet();
 
-  useEffect(() => {
-    setTimeout(() => {
-      setPreUserAddress(userAddress);
-    }, Number(POLL_INTERVAL) / 2); // make sure that update before next userAddress update
-  }, [userAddress]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setPreUserAddress(userAddress);
+  //   }, Number(POLL_INTERVAL) / 2); // make sure that update before next userAddress update
+  // }, [userAddress]);
 
   const rankRenderer = () => {
     switch (rank) {
@@ -44,7 +44,7 @@ const UserRow = ({
   };
 
   return (
-    <tr className={`${trClassName} ${preUserAddress !== userAddress && "animate-flash"}`}>
+    <tr className={`${trClassName}`}>
       <td className="py-5.64">{rankRenderer()}</td>
       <td className="uppercase">
         {userAddress.length > 3 ? (
@@ -54,7 +54,7 @@ const UserRow = ({
             target="_blank"
           >
             {account?.address &&
-            account.address.toLowerCase() === userAddress.toLowerCase() ? (
+              account.address.toLowerCase() === userAddress.toLowerCase() ? (
               <span>YOU</span>
             ) : (
               <>
@@ -75,9 +75,9 @@ const UserRow = ({
         {numberOfTrades.toLocaleString()}
       </td>
       <td className="hidden md:table-cell">
-        {typeof volume === "string" ? volume : (volume / 10 ** 6).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits: 2})}
+        {typeof volume === "string" ? volume : (volume / 10 ** 6).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
       </td>
-      <td>{points.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
+      <td>{points.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
     </tr>
   );
 };
