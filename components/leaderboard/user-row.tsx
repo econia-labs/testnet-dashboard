@@ -43,6 +43,18 @@ const UserRow = ({
     }
   };
 
+  const pointFormatter = () => {
+    // if rank is a number and is 1, 2, 3 then show 3 decimal places, otherwise don't show any decimal places
+    if (typeof rank === "number" && rank < 4) {
+      return points.toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 3,
+      });
+    } else {
+      return points.toLocaleString(undefined, { maximumFractionDigits: 0 });
+    }
+  };
+
   return (
     <tr className={`${trClassName}`}>
       <td className="py-5.64">{rankRenderer()}</td>
@@ -77,7 +89,7 @@ const UserRow = ({
       <td className="hidden md:table-cell">
         {typeof volume === "string" ? volume : (volume / 10 ** 6).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
       </td>
-      <td>{points.toLocaleString(undefined, { maximumFractionDigits: 0 })}</td>
+      <td>{pointFormatter()}</td>
     </tr>
   );
 };
