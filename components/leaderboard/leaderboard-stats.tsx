@@ -6,12 +6,12 @@ const StatCard = ({
   value,
 }: {
   title: string;
-  value: string | number | ReactElement;
+  value: string | ReactElement;
 }) => {
   return (
     <div className="border-1 border-600 flex flex-col justify-center items-center gap-6 w-224 h-81 leading-18">
       <div className="text-14 text-500">{title}</div>
-      <div className="text-20">{value}</div>
+      <div className={typeof value === "string" && value.length > 12 ? "text-[18px] lg:text-20" : "text-20"}>{value}</div>
     </div>
   );
 };
