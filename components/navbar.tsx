@@ -42,7 +42,7 @@ const SlidingMenu = ({
 
   return (
     <div
-      className={`flex flex-col gap-40 z-10 lg:hidden fixed h-full top-16 right-0 pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${isOpen ? "w-full" : "w-0"
+      className={`flex flex-col gap-40 z-10 lg:hidden fixed h-full top-16 ${isOpen ? "right-0" : "right-[-46px]"} pl-46 bg-800 bg-noise overflow-x-hidden transition-width duration-300 ease-in-out ${isOpen ? "w-full" : "w-0"
         }`}
     >
       <div className="flex flex-col pt-52 justify-between items-start gap-23.68">

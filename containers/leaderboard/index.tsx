@@ -104,7 +104,7 @@ const LeaderBoardContainer = () => {
   }
 
   return (
-    <div className="leaderboard-page-container flex flex-col items-center w-317 sm:w-437 md:w-605 lg:w-757 m-auto max-h-[calc(100vh-86.65px)] lg:max-h-[calc(100vh-107.89px)] ">
+    <div className="leaderboard-page-container flex flex-col items-center m-auto max-h-[calc(100vh-86.65px)] lg:max-h-[calc(100vh-107.89px)] ">
       <div className="mt-58">
         <CountDown endTime={endTime} />
       </div>

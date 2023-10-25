@@ -62,7 +62,7 @@ const UserRow = ({
                   {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
                 </span>
                 <span className="block xsm:hidden">
-                  {userAddress.slice(0, 3)}..
+                {userAddress.slice(0, 3)}..{userAddress.slice(-2)}
                 </span>
               </>
             )}
