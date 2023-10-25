@@ -77,7 +77,7 @@ const LeaderboardTable = ({
 
   return (
     <div
-      className={`w-317 sm:w-437 md:w-605 lg:w-757 no-scrollbar max-h-[${leaderboardHeight}px]`}
+      className={`w-[281px] xsm:w-[350px] sm:w-[450px] md:w-605 lg:w-757 no-scrollbar max-h-[${leaderboardHeight}px]`}
     >
       <table className="w-full table-auto sm:table-fixed">
         <thead className="bg-800 bg-noise sticky top-0 z-[2]">
@@ -85,7 +85,7 @@ const LeaderboardTable = ({
             <th className="text-12 text-500 uppercase text-center font-normal">
               Rank
             </th>
-            <th className="text-12 text-500 uppercase text-center font-normal w-2 xsm:w-auto">
+            <th className="text-12 text-500 uppercase text-center font-normal">
               Trader
             </th>
             <th className="text-12 text-500 uppercase text-center font-normal hidden lg:table-cell">
